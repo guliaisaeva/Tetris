@@ -8,37 +8,28 @@
   </head>
   <body>
     <script>
-        //    3. Write a program to enter an integer number between 1 and 20.
-        //     If the number is out of that range, ask to enter again.
-        // The entered number will be length of an array.
-        // Create an array of that length. Fill the array with random numbers between 0 and 100.
-        //  Then show the array using alert/message box.
-      let randomNumber = Math.floor(Math.random() * 101);
-      let array = [];
-      let enteredNumber = parseInt(prompt("Please enter a number between 1 and 20:"));
-      while (true){ 
-        if (isNaN(enteredNumber)) {
-          alert("Not a number");
-          enteredNumber = parseInt(prompt("Please enter a number between 1 and 20:"));
-        }
-         else if(enteredNumber>=21){
-        alert("Enter again")
-        enteredNumber = parseInt(prompt("Please enter a number between 1 and 20:"));
-         }
-
-        else{
-          alert("Number entered")
-          enteredNumber = parseInt(prompt("Please enter a number between 1 and 20:"));
-        }
-
-
-      }
-
-      // for(let i=0; i<array.length;i++){
-
-      
+      //    3. Write a program to enter an integer number between 1 and 20.
+      //     If the number is out of that range, ask to enter again.
+      // The entered number will be length of an array.
+      // Create an array of that length. Fill the array with random numbers between 0 and 100.
+      //  Then show the array using alert/message box.
+      // let enteredNumber = parseInt(
+      //   prompt("Please enter a number between 1 and 20(including):")
+      // );
+      // while (enteredNumber > 20 || enteredNumber < 1 || isNaN(enteredNumber)) {
+      //   enteredNumber = parseInt(
+      //     prompt("Please enter a number again between 1 and 20:")
+      //   );
       // }
-    
+      // let integerNumber = Math.round(enteredNumber);
+      // console.log(integerNumber);
+      // const array = [];
+      // for (i = 0; i < integerNumber; i++) {
+      //   let randomNumber = Math.floor(Math.random() * 101);
+      //   array.push(randomNumber);
+      // }
+      // alert(`This is an array of numbers: ${array}`);
+
       /* Askat: 
 	 (1) No check if entered less than 1;
 	 (2) Create an array of a given length. Fill the array with random numbers between 0 and 100. Then show the array using alert/message box.

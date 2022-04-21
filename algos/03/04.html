@@ -8,27 +8,25 @@
   </head>
   <body>
     <script>
-
       // 4. Write a program duplicating an array but with zeros at the beginning.
       //  Use functions.
-   
 
       //const arr = [1, 0, 8, 0, 8, -1];
-      const arr = [1, 2, 3, 0, 4, -1];
-      const arr2 = arr.slice(); // [0, 0, 1, 8, 3, -1]
-      function copy(inArr) {
-       for (var i = arr2.length - 1; i >= 0; i--) {
-          if (arr2[i] === 0) {
-            arr2.splice(i, 1);
-            arr2.unshift(0);
-          }
-        }
-        return arr2;
-      }
-      console.log(copy(arr2));
+
+      // const arr = [1, 2, 3, 0, 4, -1];
+      // const arr2 = arr.slice(); // [0, 0, 1, 8, 3, -1]
+      // function copy(inArr) {
+      //  for (var i = arr2.length - 1; i >= 0; i--) {
+      //     if (arr2[i] === 0) {
+      //       arr2.splice(i, 1);
+      //       arr2.unshift(0);
+      //     }
+      //   }
+      //   return arr2;
+      // }
+      // console.log(copy(arr2));
 
       // Askat: CORRECT.
-   
     </script>
   </body>
 </html>
