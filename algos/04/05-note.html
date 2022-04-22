@@ -25,6 +25,19 @@
           return false;
         }
       }
+
+      // You did good. Another way with less lines:
+      function equals2(arr1, arr2) {
+	  if (arr1.length != arr2.length) return false;
+
+	  for (i = 0; i < arr1.length; i++) {
+	      if (arr1[i] != arr2[i]) {
+		  return false;
+	      }
+	  }
+	     
+	  return true;
+      }
       console.log(equals(arr1, arr2));
     </script>
   </body>
