@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- CSS style -->
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- Animate CSS CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Lobster&family=Montserrat:wght@300;400;500;600;700;800;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,400;1,500&display=swap"
+      rel="stylesheet"
+    />
+    <title>Gulia | Web Developer</title>
+  </head>
+  <body>
+    <!-- fixed nav -->
+    <nav>
+      <a class="logo-link" href="#home"><h1 class="logo">Gulia</h1></a>
+
+      <!-- socials -->
+      <div class="socials">
+        <a href="#" target="blank">
+          <img
+            src="icons/carbon_logo-instagram.svg"
+            loading="lazy"
+            class="socicon"
+            alt="instagram"
+          />
+        </a>
+        <a href="#" target="blank">
+          <img
+            src="icons/carbon_logo-github.svg"
+            loading="lazy"
+            class="socicon"
+            alt="github"
+          />
+        </a>
+        <a href="#" target="blank">
+          <img
+            src="icons/carbon_email.svg"
+            loading="lazy"
+            class="socicon"
+            alt="e.mail"
+          />
+        </a>
+      </div>
+      <!-- navigation -->
+      <ul class="navigation">
+        <li><a href="#home" class="nav-link">Home</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#skills" class="nav-link">Skills</a></li>
+        <li><a href="#projects" class="nav-link">Projects</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+      <button class="burger-menu" id="burger-menu">
+        <img src="icons/bx_menu.svg" alt="burger-menu" width="40px" />
+      </button>
+    </nav>
+
+    <!-- hero -->
+
+    <section class="hero" id="home">
+      <h2 class="welcome-text">Welcome to my website!</h2>
+      <div class="bg">
+        <!-- <img class="bg-image" src="images/bg-welcome.png" alt="hero-img" /> -->
+        <div class="yurta-images">
+          <div class="yurtas-left">
+            <div>
+              <img
+                src="icons/yurta-sm-left.svg"
+                alt="yurta-sm"
+                loading="lazy"
+              />
+              <div class="yurta-smoke">
+                <span></span>
+                <span></span>
+                <img
+                  class="yurtaM"
+                  src="icons/yurta-M-link.svg"
+                  alt="m-yurta"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+            <!-- <div>
+              <img src="icons/yurta-L-left.svg" alt="l-yurta" loading="lazy" />
+            </div> -->
+          </div>
+
+          <div class="yurtas-right">
+            <div class="smoke">
+              <span></span>
+              <span></span>
+              <img
+                src="icons/yurta-sm-right.svg"
+                alt="yurta-sm"
+                loading="lazy"
+              />
+            </div>
+            <div class="yurtaM">
+              <img
+                src="icons/yurta-md-right.svg"
+                alt="m-yurta"
+                loading="lazy"
+              />
+            </div>
+            <!-- <div>
+                <img
+                  src="icons/yurta-l-right.svg"
+                  alt="l-yurta"
+                  loading="lazy"
+                />
+              </div> -->
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- about me  -->
+    <main class="about-me" id="about">
+      <h2 class="aboutTitle">About me</h2>
+      <div class="about-ballons">
+        <img class="cloud-left" src="icons/cloudleft.svg" alt="bubble" />
+
+        <img class="cloud-middle" src="icons/cloudmiddle.svg" alt="bubble" />
+
+        <img class="cloud-right" src="icons/cloudright.svg" alt="cloud" />
+      </div>
+      <div class="ballon-text">
+        <p class="about-text1">
+          I‘m very <strong>passionate</strong> and <strong>dedicated</strong> to
+          my work.
+        </p>
+        <p class="about-text2">
+          Hi!I am Gulia. <br />
+          A <strong>Web Developer.</strong>
+        </p>
+        <p class="about-text3">
+          I <strong>like to code</strong> things from scratch, and
+          <strong>enjoy bringing ideas</strong> to life in the browser.
+        </p>
+      </div>
+      <div class="about-bg"></div>
+      <div class="about-btns">
+        <a href="mailto:gulya.isaeva.pls@gmail.com"
+          ><button class="contact-btn">Get in touch</button></a
+        >
+        <a href="icons/carbon_email.svg" download
+          ><button id="download-btn">Download CV</button></a
+        >
+      </div>
+    </main>
+    <!-- skills -->
+
+    <section class="skills" id="skills">
+      <h2 class="skill-title">My Skills</h2>
+      <div class="subtitles">
+        <h3>Soft Skills</h3>
+        <h3>Hard Skills</h3>
+      </div>
+
+      <div class="skills-wrapper">
+        <div class="first-set animate__animated animate__pulse" id="sskills">
+          <div class="softskills">
+            <p>Open-mindedness and adaptability</p>
+            <p>Creativity and Problem-Solving</p>
+            <p>Teamwork and Collaboration</p>
+            <p>Flexibility and Confidence</p>
+            <p>Communication</p>
+            <p>Management</p>
+            <p>Empathy</p>
+            <p style="color: red">&#10084;</p>
+          </div>
+        </div>
+        <div class="hardSkills">
+          <div class="first-set animate__animated animate__pulse">
+            <img
+              src="icons/icons8-html-5.svg"
+              alt="html"
+              class="icon icon-card"
+              loading="lazy"
+            />
+            <img
+              src="icons/icons8-css3.svg"
+              alt="css3"
+              class="icon icon-card"
+              loading="lazy"
+            />
+            <img
+              src="icons/icons8-javascript.svg"
+              alt="java script"
+              class="icon icon-card"
+              loading="lazy"
+            />
+          </div>
+          <div class="second-set animate__animated animate__pulse">
+            <img
+              src="icons/icons8-bootstrap.svg"
+              alt="html"
+              class="icon icon-card"
+              loading="lazy"
+            />
+            <img
+              src="icons/icons8-react.svg"
+              alt="css3"
+              class="icon icon-card"
+              loading="lazy"
+            />
+            <img
+              src="icons/icons8-mongodb.svg"
+              alt="java script"
+              class="icon icon-card"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- projects -->
+    <section class="projects" id="projects">
+      <h2 class="projects-title">My Projects</h2>
+      <div class="projects-container">
+        <div class="project-container project-card">
+          <img
+            class="project-pic"
+            src="images/project.jpg"
+            alt="expense tracker"
+            loading="lazy"
+          />
+
+          <h3 class="project-title">Expense Tracker</h3>
+          <p class="project-details">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Qui
+            repellat similique laudantium rem, molestiae, nobis consequuntur
+            error alias fugit, incidunt eaque nam labore eius. Repellat totam
+            aspernatur cupiditate dicta consectetur.
+          </p>
+          <a href="#" target="_blank" class="project-link"> Check it out</a>
+        </div>
+        <div class="project-container project-card">
+          <img
+            class="project-pic"
+            src="images/project.jpg"
+            alt="expense tracker"
+            loading="lazy"
+          />
+
+          <h3 class="project-title">Expense Tracker</h3>
+          <p class="project-details">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Qui
+            repellat similique laudantium rem, molestiae, nobis consequuntur
+            error alias fugit, incidunt eaque nam labore eius. Repellat totam
+            aspernatur cupiditate dicta consectetur.
+          </p>
+          <a href="#" target="_blank" class="project-link"> Check it out</a>
+        </div>
+        <div class="project-container project-card">
+          <img
+            class="project-pic"
+            src="images/project.jpg"
+            alt="expense tracker"
+            loading="lazy"
+          />
+
+          <h3 class="project-title">Expense Tracker</h3>
+          <p class="project-details">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Qui
+            repellat similique laudantium rem, molestiae, nobis consequuntur
+            error alias fugit, incidunt eaque nam labore eius. Repellat totam
+            aspernatur cupiditate dicta consectetur.
+          </p>
+          <a href="#" target="_blank" class="project-link"> Check it out</a>
+        </div>
+        <div class="project-container project-card">
+          <img
+            class="project-pic"
+            src="images/project.jpg"
+            alt="expense tracker"
+            loading="lazy"
+          />
+
+          <h3 class="project-title">Expense Tracker</h3>
+          <p class="project-details">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Qui
+            repellat similique laudantium rem, molestiae, nobis consequuntur
+            error alias fugit, incidunt eaque nam labore eius. Repellat totam
+            aspernatur cupiditate dicta consectetur.
+          </p>
+          <a href="#" target="_blank" class="project-link"> Check it out</a>
+        </div>
+      </div>
+    </section>
+    <!-- contact section -->
+    <section class="contact" id="contact">
+      <h2>Get In Touch With Me</h2>
+      <div class="contact-form-container">
+        <div class="contact-form">
+          <form action="#" method="post">
+            <div class="form-control">
+              <label for="name">Name</label>
+              <input
+                type="text"
+                id="name"
+                name="sender-name"
+                placeholder="Enter Your Name"
+                class="input-field"
+                required
+              />
+            </div>
+            <div class="form-control">
+              <label for="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="sender-email"
+                placeholder="Enter Your Email"
+                class="input-field"
+                required
+              />
+            </div>
+            <div class="form-control">
+              <label for="message">Message</label>
+              <textarea
+                id="message"
+                cols="60"
+                rows="10"
+                placeholder="Enter Your Message"
+                name="message"
+                class="input-field"
+                required
+              ></textarea>
+            </div>
+
+            <input
+              type="submit"
+              value="Submit"
+              class="submit-btn"
+              id="submit-btn"
+            />
+          </form>
+        </div>
+      </div>
+    </section>
+    <!-- footer -->
+    <footer>
+      <p class="copy">&copy; Copyright 2022</p>
+      <p class="copy">
+        Built with &#x2661; by
+        <a href="http://guliacode.com/" target="_blank">Gulia</a>
+      </p>
+    </footer>
+    <i class="scroll-up" id="scroll-up">
+      <img src="icons/up-arrow.svg" alt="scroll-up" class="socicon up-arrow" />
+    </i>
+    <script src="js/main.js"></script>
+  </body>
+</html>
