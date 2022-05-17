@@ -1,0 +1,9 @@
+* {
+  box-sizing: border-box;
+}
+.container {
+  text-align: center;
+}
+/* .dropdown {
+  display: none;
+} */
