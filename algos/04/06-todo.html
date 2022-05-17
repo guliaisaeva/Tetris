@@ -21,13 +21,28 @@
       console.log(deleteExtraSpaces(str));
       // Should be only one space between words:
       // “JavaScript   is   cool!” => “JavaScript is cool!”
-      let str1 = "JavaScript   is   cool!";
-      function deleteExtraSpaces(str1) {
-        return str1.replace(/\s+/g, " ").trim();
-      }
-      console.log(deleteExtraSpaces(str1));
+      // let str1 = "JavaScript   is   cool!";
+      // function deleteExtraSpaces(str1) {
+      //   return str1.replace(/\s+/g, " ").trim();
+      // }
+      // console.log(deleteExtraSpaces(str1));
 
       // Askat: Please don’t use any ready solution. Write your own code with loops (for, while) and "if".
+      let string = "  JavaScript   is   cool!   ";
+      let newString = " ";
+      const deleteExtraSpaces1 = function (string) {
+        string.trim();
+        for (i = 0; i < string.length; i++) {
+          if (string[i] !== " ") {
+            newString += string[i];
+          } else if (string[i - 1] !== " ") {
+            newString += string[i];
+          }
+        }
+        return newString;
+      };
+
+      console.log(deleteExtraSpaces1(string));
     </script>
   </body>
 </html>

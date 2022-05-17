@@ -12,61 +12,104 @@
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
     />
-    <style></style>
+    <link rel="stylesheet" href="calculator.css" />
   </head>
   <body>
-    <div class="container">
-      <div class="mt-4">
+    <div class="container mw-100 m-5">
+      <h1 class="text-center">Simple Calculator</h1>
+      <div class="mt-4 mx-auto border border-secondary p-5 bg-warning w-25">
         <div class="col-md-4">
-          <label for="formGroupExampleInput" class="form-label"
-            >Fisrt Number</label
-          >
           <input
             type="number"
-            class="form-control"
+            class="form-control w-auto"
             id="firstNumber"
             placeholder="Enter your first number"
           />
         </div>
+        <br />
         <div class="col-md-4">
-          <label for="inputOperator" class="form-label">Operations</label>
-          <select id="inputOperator" class="form-select">
-            <option selected>Choose...</option>
-            <option value="plus" id="plus">&#43;</option>
-            <option value="minus" id="minus">&#8722;</option>
-            <option value="multiply" id="multiply">&#215;</option>
-            <option value="divide" id="divide">&#247;</option>
-          </select>
-        </div>
-
-        <div class="col-md-4">
-          <label for="formGroupExampleInput2" class="form-label"
-            >Second Number</label
-          >
           <input
             type="number"
-            class="form-control"
+            class="form-control w-auto"
             id="secondNumber"
             placeholder="Enter your second number"
           />
         </div>
-        <button
+        <div class="col-md-4">
+          <div
+            class="btn-group pt-4"
+            role="group"
+            aria-label="Basic outlined example"
+          >
+            <button
+              onclick="add()"
+              type="button"
+              class="btn btn-outline-primary"
+              id="plus"
+            >
+              &#43;
+            </button>
+            <button
+              onclick="substraction()"
+              type="button"
+              class="btn btn-outline-primary"
+              id="minus"
+            >
+              &#8722;
+            </button>
+            <button
+              onclick="multiply()"
+              type="button"
+              class="btn btn-outline-primary"
+              id="multiply"
+            >
+              &#215;
+            </button>
+            <button
+              onclick="divide()"
+              type="button"
+              class="btn btn-outline-primary"
+              id="divide"
+            >
+              /
+            </button>
+          </div>
+        </div>
+        <!-- <button
+          id="calculateBtn"
           type="button"
-          onClick="plus1()"
           class="btn btn-outline-primary mt-4"
         >
           Calculate
-        </button>
-        <div class="col-md-4 mt-3" id="result">Result:</div>
+        </button> -->
+        <br />
+        <b>The Result is:</b>
+        <span class="col-md-4 mt-3" id="result"></span>
       </div>
     </div>
     <script>
-      num1 = document.getElementById("firstNumber");
-      num2 = document.getElementById("seconNumber");
-      plus = document.getElementById("plus");
-      minus = document.getElementById("minus");
-      multiply = document.getElementById("multiply");
-      divide = document.getElementById("divide");
+      function add() {
+        let x = document.getElementById("firstNumber").value;
+        let y = document.getElementById("secondNumber").value;
+        calculate = document.getElementById("result").innerHTML =
+          parseInt(x) + parseInt(y);
+      }
+      function substraction() {
+        let x = document.getElementById("firstNumber").value;
+        let y = document.getElementById("secondNumber").value;
+        calculate = document.getElementById("result").innerHTML =
+          parseInt(x) - parseInt(y);
+      }
+      function multiply() {
+        let x = document.getElementById("firstNumber").value;
+        let y = document.getElementById("secondNumber").value;
+        document.getElementById("result").innerHTML = parseInt(x) * parseInt(y);
+      }
+      function divide() {
+        let x = document.getElementById("firstNumber").value;
+        let y = document.getElementById("secondNumber").value;
+        document.getElementById("result").innerHTML = parseInt(x) / parseInt(y);
+      }
     </script>
   </body>
 </html>
