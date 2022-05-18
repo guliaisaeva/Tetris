@@ -610,3 +610,28 @@ footer {
   width: 2rem;
   height: 2rem;
 }
+
+/* MyProject.html*/
+
+h1 {
+  margin: 3rem;
+  text-align: center;
+}
+
+figure {
+  width: 310px;
+  border: 1px #3e8e41 solid;
+  padding: 4px;
+  margin: auto;
+}
+figcaption {
+  background-color: #000;
+  color: white;
+  font-style: italic;
+  padding: 2px;
+  text-align: center;
+}
+.photoGalerie {
+  display: flex;
+  justify-content: space-evenly;
+}
