@@ -43,9 +43,9 @@
                 Elvira <span id="score">()</span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item" href="#">Play</a></li>
-              <li><a class="dropdown-item" href="#">Reset</a></li>
-              <li><a class="dropdown-item" href="#">Delete</span></a></li>
+              <li><a onclick="startGame()" class="dropdown-item" id="play" href="#">Play</a></li>
+              <li><a class="dropdown-item" id="reset" >Reset</a></li>
+              <li><a class="dropdown-item" id="delete" >Delete</span></a></li>
             </ul>
           </div>
           <div class="dropdown">
@@ -53,9 +53,9 @@
                 Gulia <span id="score">()</span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item" href="#">Play</a></li>
-              <li><a class="dropdown-item" href="#">Reset</a></li>
-              <li><a class="dropdown-item" href="#">Delete</span></a></li>
+              <li><a class="dropdown-item" id="play" href="#">Play</a></li>
+              <li><a class="dropdown-item" id="reset" href="#">Reset</a></li>
+              <li><a class="dropdown-item" id="delete" href="#">Delete</span></a></li>
             </ul>
           </div>
           <div class="dropdown">
@@ -68,6 +68,18 @@
               <li><a class="dropdown-item" href="#">Delete</span></a></li>
             </ul>
           </div>
+    </div>
+  <div hidden id="timeDisplay"  class="time m-4">Time Left:9</div>
+    <div class="input-group  mx-auto mb-3 w-25 m-4">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id=""> Arithmetic Question:</span>
+      </div>
+      <button type="button" id="number1" class="btn btn-outline-secondary">0</button>
+      <button type="button" id="operator" class="btn btn-outline-secondary">+</button>
+      <button type="button" id="number2" class="btn btn-outline-secondary">0</button>
+   
+      <button type="button" id="equal" class="btn btn-outline-secondary">=</button>
+      <input type="number" class="form-control" id="answer">
     </div>
     </div>
   <script src="mathGame.js"></script>
