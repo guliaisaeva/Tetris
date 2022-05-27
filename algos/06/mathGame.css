@@ -4,31 +4,6 @@
 .container {
   text-align: center;
 }
-/* .dropdown-content {
-}
-.box {
-  color: aqua;
-} */
-/* .dropdown {
-  display: none;
-} */
-
-/* #dropdown{
- display:flex;
- justify-content:center;
- position:relative;
- margin:5rem 0;
-}
-#btn{
-  top:20%;
-  left:25%;
-  position:absolute;
-  background-color:blue;
-  display:flex;
-  justify-content:center;
-  margin-left:16rem;
-
-}  */
 
 .dropbtn {
   background-color: #4caf50;
@@ -77,7 +52,8 @@ input {
   width: 100px;
 }
 .quiz {
+  /* display: none; */
   margin-top: 5rem;
-  display: inline-block;
+  display: block;
   margin-left: 45%;
 }
