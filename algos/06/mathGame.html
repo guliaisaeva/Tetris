@@ -14,7 +14,7 @@
     />
   </head>
   <body>
-    <div class="container ">
+    <div class="container">
       <h1 class="m-4">Simple Math Game</h1>
       <div class="input-group mx-auto mb-3 w-25" >
         <input
@@ -26,62 +26,26 @@
           id="userName"
         />
         <button
-      
+        onclick="addName()"
           class="btn btn-outline-secondary"
           type="button"
           id="button-addon2"
-      
         >
           Add
         </button>
-       
+
       </div>
-      <div class="btn-group d-flex flex-column gap-3" id="dropdownGroup">
-     
-        <div class="dropdown" id="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                Elvira <span id="score">()</span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a onclick="startGame()" class="dropdown-item" id="play" href="#">Play</a></li>
-              <li><a class="dropdown-item" id="reset" >Reset</a></li>
-              <li><a class="dropdown-item" id="delete" >Delete</span></a></li>
-            </ul>
-          </div>
-          <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                Gulia <span id="score">()</span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item" id="play" href="#">Play</a></li>
-              <li><a class="dropdown-item" id="reset" href="#">Reset</a></li>
-              <li><a class="dropdown-item" id="delete" href="#">Delete</span></a></li>
-            </ul>
-          </div>
-          <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                Aysal <span id="score">()</span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item" href="#">Play</a></li>
-              <li><a class="dropdown-item" href="#">Reset</a></li>
-              <li><a class="dropdown-item" href="#">Delete</span></a></li>
-            </ul>
-          </div>
-    </div>
-  <div hidden id="timeDisplay"  class="time m-4">Time Left:9</div>
-    <div class="input-group  mx-auto mb-3 w-25 m-4">
-      <div class="input-group-prepend">
-        <span class="input-group-text" id=""> Arithmetic Question:</span>
-      </div>
-      <button type="button" id="number1" class="btn btn-outline-secondary">0</button>
-      <button type="button" id="operator" class="btn btn-outline-secondary">+</button>
-      <button type="button" id="number2" class="btn btn-outline-secondary">0</button>
-   
-      <button type="button" id="equal" class="btn btn-outline-secondary">=</button>
-      <input type="number" class="form-control" id="answer">
-    </div>
-    </div>
+
+  </div>
+  <div class="question">
+    <input type="number" name="number1" id="firstNumber" disabled placeholder="Number 1">
+    <input type="text" disabled id="operator" placeholder="operation">
+    <input type="number" name="number1" id="firstNumber" disabled placeholder="Number 2">
+    <input type="number" name="number1" id="firstNumber" disabled placeholder="=">
+    <input type="number" name="number1" id="firstNumber"  placeholder="  ?">
+    
+
+  </div>
   <script src="mathGame.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous""></script>
   </body>

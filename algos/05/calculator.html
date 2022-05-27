@@ -26,6 +26,27 @@
             placeholder="Enter your first number"
           />
         </div>
+
+        <div class="col-md-4">
+          <div
+            class="btn-group pt-4"
+            role="group"
+            aria-label="Basic outlined example"
+          >
+            <button type="button" class="btn btn-outline-primary" id="plus">
+              +
+            </button>
+            <button type="button" class="btn btn-outline-primary" id="minus">
+              -
+            </button>
+            <button type="button" class="btn btn-outline-primary" id="multiply">
+              *
+            </button>
+            <button type="button" class="btn btn-outline-primary" id="divide">
+              /
+            </button>
+          </div>
+        </div>
         <br />
         <div class="col-md-4">
           <input
@@ -35,79 +56,116 @@
             placeholder="Enter your second number"
           />
         </div>
-        <div class="col-md-4">
-          <div
-            class="btn-group pt-4"
-            role="group"
-            aria-label="Basic outlined example"
-          >
-            <button
-              onclick="add()"
-              type="button"
-              class="btn btn-outline-primary"
-              id="plus"
-            >
-              &#43;
-            </button>
-            <button
-              onclick="substraction()"
-              type="button"
-              class="btn btn-outline-primary"
-              id="minus"
-            >
-              &#8722;
-            </button>
-            <button
-              onclick="multiply()"
-              type="button"
-              class="btn btn-outline-primary"
-              id="multiply"
-            >
-              &#215;
-            </button>
-            <button
-              onclick="divide()"
-              type="button"
-              class="btn btn-outline-primary"
-              id="divide"
-            >
-              /
-            </button>
-          </div>
-        </div>
-        <!-- <button
+
+        <button
+          onclick="calculate()"
           id="calculateBtn"
           type="button"
           class="btn btn-outline-primary mt-4"
         >
           Calculate
-        </button> -->
+        </button>
         <br />
-        <b>The Result is:</b>
+        <!-- <b>The Result is:</b> -->
         <span class="col-md-4 mt-3" id="result"></span>
       </div>
     </div>
+
     <script>
+      const plus = document.getElementById("plus");
+      const minus = document.getElementById("minus");
+      const multipl = document.getElementById("multiply");
+      const divid = document.getElementById("divide");
+      // let x = document.getElementById("firstNumber").value;
+      // let y = document.getElementById("secondNumber").value;
+      // let result = document.getElementById("result");
+      // const btn = document.getElementsByClassName("btn");
+
+      // const mathGame = function () {
+      //   let firstNumber = parseInt(
+      //     document.getElementById("firstNumber").value
+      //   );
+      //   let seconNumber = parseInt(
+      //     document.getElementById("secondNumber").value
+      //   );
+      //   let operators = document.getElementsByClassName("btn").value;
+      //   let oper = calc(firstNumber, operators, seconNumber);
+      //   document.getElementById("result").innerHTML = "The Result is:" + oper;
+      // };
+      // function calc(a, b, operator) {
+      //   if (isNaN(a) || isNaN(b) || a === "" || b === "") {
+      //     alert("You should enter a number!");
+      //     return 0;
+      //   } else if (operator === "+") {
+      //     return a + b;
+      //   } else if (operator === "-") {
+      //     return a - b;
+      //   } else if (operator === "*") {
+      //     return a * b;
+      //   } else if (operator === "/") {
+      //     return a / b;
+      //   } else {
+      //     alert("Use operator  +,-,*,/");
+      //   }
+      // }
+
+      function calculate() {
+        if (plus.addEventListener("click", add())) {
+          return add();
+        } else if (minus.addEventListener("click", substraction())) {
+          // return
+          substraction();
+        } else if (multipl.addEventListener("click", multiply())) {
+          return multiply();
+        } else if (divid.addEventListener("click", divide())) {
+          return divide();
+        }
+      }
+      // calculate();
+
+      // function calculate() {
+      //   if (plus === "+") {
+      //     function add() {
+      //       let x = document.getElementById("firstNumber").value;
+      //       let y = document.getElementById("secondNumber").value;
+      //       let res = parseInt(x) + parseInt(y);
+      //       document.getElementById("result").innerHTML = "Result is:" + res;
+      //     }
+      //   }
+      // else if (btn === "-") {
+      //   return substraction();
+      // } else if (btn === "*") {
+      //   return multiply();
+      // } else if (btn === "/") {
+      //   return divide();
+      // }
+      // }
+      // calculate();
       function add() {
         let x = document.getElementById("firstNumber").value;
         let y = document.getElementById("secondNumber").value;
-        document.getElementById("result").innerHTML = parseInt(x) + parseInt(y);
+        let res = parseInt(x) + parseInt(y);
+        document.getElementById("result").innerHTML = "Result is:" + res;
       }
       function substraction() {
         let x = document.getElementById("firstNumber").value;
         let y = document.getElementById("secondNumber").value;
-        document.getElementById("result").innerHTML = parseInt(x) - parseInt(y);
+        let res = parseInt(x) - parseInt(y);
+        document.getElementById("result").innerHTML = "Result is:" + res;
       }
       function multiply() {
         let x = document.getElementById("firstNumber").value;
         let y = document.getElementById("secondNumber").value;
-        document.getElementById("result").innerHTML = parseInt(x) * parseInt(y);
+        let res = parseInt(x) * parseInt(y);
+        document.getElementById("result").innerHTML = "Result is:" + res;
       }
       function divide() {
         let x = document.getElementById("firstNumber").value;
         let y = document.getElementById("secondNumber").value;
-        document.getElementById("result").innerHTML = parseInt(x) / parseInt(y);
+        let res = parseInt(x) / parseInt(y);
+        document.getElementById("result").innerHTML = "Result is:" + res;
       }
+      // add();
     </script>
   </body>
 </html>
