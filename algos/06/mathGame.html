@@ -37,15 +37,14 @@
       </div>
 
   </div>
-  <div class="question">
-    <input type="number" name="number1" id="firstNumber" disabled placeholder="Number 1">
-    <input type="text" disabled id="operator" placeholder="operation">
-    <input type="number" name="number1" id="firstNumber" disabled placeholder="Number 2">
-    <input type="number" name="number1" id="firstNumber" disabled placeholder="=">
-    <input type="number" name="number1" id="firstNumber"  placeholder="  ?">
-    
+ <div class="quiz">
+ <h2>Question:</h2>
+ 
+   <h3 id="question"></h3>
+   <input type="number" name="answer" id="answer">
+   <button onclick="answer()">Enter</button>
 
-  </div>
+ </div>
   <script src="mathGame.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous""></script>
   </body>

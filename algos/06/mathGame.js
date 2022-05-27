@@ -44,7 +44,6 @@ function addName() {
       dis.style.display = "none";
     }
   });
-  nextQuestion();
 }
 
 // let playerscore = 0;
@@ -72,14 +71,57 @@ function addName() {
 //     }
 //   }, 1000);
 // }
-function nextQuestion() {
-  let operations = document.getElementById("operator");
-  let fisrtNumberInput = document.getElementById("number1");
-  let secondNumberInput = document.getElementById("number2");
-  operations.innerHTML = ["+", "-"];
-  fisrtNumberInput.innerHTML = Math.floor(Math.random() * 100);
-  secondNumberInput.innerHTML = Math.floor(Math.random() * 100);
+
+// function nextQuestion() {
+//   let operations = document.getElementById("operator");
+//   let fisrtNumberInput = document.getElementById("number1");
+//   let secondNumberInput = document.getElementById("number2");
+//   operations.innerHTML = ["+", "-"];
+//   fisrtNumberInput.innerHTML = Math.floor(Math.random() * 100);
+//   secondNumberInput.innerHTML = Math.floor(Math.random() * 100);
+// }
+
+let firstNumber = Math.floor(Math.random() * 100);
+let secondNumber = Math.floor(Math.random() * 100);
+let operators = [
+  {
+    sign: "+",
+    method: function (a, b) {
+      return a + b;
+    },
+  },
+  {
+    sign: "-",
+    method: function (a, b) {
+      return a - b;
+    },
+  },
+];
+
+let selectedOperator = Math.floor(Math.random() * operators.length);
+
+let oper = operators[selectedOperator].sign;
+
+document.getElementById("question").innerHTML =
+  firstNumber + oper + secondNumber + "=" + "?";
+let correctAnswer = function an(add, sub) {
+  if (add) {
+    return firstNumber + secondNumber;
+  } else {
+    return firstNumber - secondNumber;
+  }
+};
+
+function answer() {
+  let userAnswer = parseInt(document.getElementById("answer").value);
+  if (correctAnswer === userAnswer) {
+    alert("Great! Correct! Refresh the page to play again!");
+  } else {
+    alert("Wrong! Try again!");
+  }
 }
+answer();
+
 // operations.innerHTML=
 //   var operators = [{
 //     sign: "+",

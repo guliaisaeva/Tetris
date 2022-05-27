@@ -76,3 +76,8 @@
 input {
   width: 100px;
 }
+.quiz {
+  margin-top: 5rem;
+  display: inline-block;
+  margin-left: 45%;
+}
