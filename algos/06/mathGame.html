@@ -16,6 +16,7 @@
   <body>
     <div class="container">
       <h1 class="m-4">Simple Math Game</h1>
+      <div id="count">Time</div>
       <div class="input-group mx-auto mb-3 w-25" >
         <input
           type="text"
@@ -26,7 +27,7 @@
           id="userName"
         />
         <button
-        onclick="addName()"
+        onclick="addNewUser()"
           class="btn btn-outline-secondary"
           type="button"
           id="button-addon2"
@@ -37,12 +38,10 @@
       </div>
 
   </div>
+
  <div class="quiz">
- <h2>Question:</h2>
- 
-   <h3 id="question"></h3>
-   <input type="number" name="answer" id="answer">
-   <button onclick="answer()">Enter</button>
+   <h2 id="demo"></h2>
+   
 
  </div>
   <script src="mathGame.js"></script>
