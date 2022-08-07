@@ -1,14 +1,43 @@
+let loadedUsers = localStorage.getItem("users");
+const userObj = JSON.parse(loadedUsers);
+for (var user in userObj) {
+  addNewUser(user, userObj[user]);
+}
+
+function save() {
+  let users = {};
+
+  let buttons = document.querySelectorAll(".dropbtn");
+  for (let i = 0; i < buttons.length; i++) {
+    let name = buttons[i].id;
+    console.log(name);
+    let spanId = "score_" + name;
+    let span = document.getElementById(spanId);
+    users[name] = span.innerHTML;
+    console.log(span.innerHTML);
+    console.log(spanId);
+  }
+  console.log(users);
+  const myJSON = JSON.stringify(users);
+  window.localStorage.setItem("users", myJSON);
+}
+
 const username = document.getElementById("userName");
 
-function addNewUser() {
+function addUser() {
   const name = username.value;
+  addNewUser(name, 0);
+}
+
+function addNewUser(userName, scoreIn) {
+  console.log(scoreIn);
   let newBtn = document.createElement("button");
-  newBtn.setAttribute("id", name);
+  newBtn.setAttribute("id", userName);
   newBtn.classList.add("dropbtn");
   document.body.appendChild(newBtn);
-  let spanId = "score_" + name;
-  console.log(spanId);
-  newBtn.innerHTML = name + " ( <span id='" + spanId + "' >0</span> ) ";
+  let spanId = "score_" + userName;
+  newBtn.innerHTML =
+    userName + " ( <span id='" + spanId + "' >" + scoreIn + "</span> ) ";
 
   // play
 
@@ -16,7 +45,6 @@ function addNewUser() {
   playLink.innerHTML = " Play ";
   document.body.appendChild(playLink);
   let score = 0;
-  username.value = "";
 
   playLink.addEventListener("click", function () {
     for (i = 1; i <= 5; i++) {
@@ -43,7 +71,10 @@ function addNewUser() {
         secondNumber
       );
 
-      let question = prompt(
+      // timer
+      let startTime = new Date();
+
+      let userAnswer = prompt(
         " Math question:  " +
           firstNumber +
           oper +
@@ -52,8 +83,11 @@ function addNewUser() {
           "?" +
           "Please enter your answer"
       );
+      let endTime = new Date();
+      let difTime = (endTime - startTime) / 1000;
+      let timer = document.getElementById("count");
 
-      if (parseInt(question) == correctAnswer) {
+      if (parseInt(userAnswer) == correctAnswer && difTime < 5) {
         alert("Great,you are right!");
         score++;
         let userScore = document.getElementById(spanId);
@@ -62,7 +96,12 @@ function addNewUser() {
         alert("You are wrong");
       }
 
-      if (question === null) {
+      save();
+
+      console.log(parseInt(userAnswer) == correctAnswer);
+      console.log(score);
+
+      if (userAnswer === null) {
         return;
       }
     }
@@ -79,6 +118,7 @@ function addNewUser() {
     playLink.remove();
     resetLink.remove();
     deleteLink.remove();
+    save();
   });
 
   // reset
@@ -88,44 +128,8 @@ function addNewUser() {
   resetLink.addEventListener("click", function () {
     let scoreSpan = document.getElementById(spanId);
     scoreSpan.innerHTML = 0;
-    // console.log(spanId);
   });
 }
-// const link = document.querySelectorAll("a");
-
-// function addName() {
-//   const name = username.value;
-//   username.value = "";
-//   let box = document.createElement("div");
-//   box.setAttribute("id", "dropdown");
-//   let newBtn = document.createElement("button");
-//   newBtn.setAttribute("id", "dropBtn");
-//   newBtn.classList.add("dropbtn");
-//   let span = document.createElement("span");
-//   span.setAttribute("id", "score");
-//   let score = (span.innerHTML = "()");
-//   span.append(newBtn);
-//   newBtn.innerHTML = name + score;
-//   box.appendChild(newBtn);
-//   document.body.appendChild(box);
-
-//   let box2 = document.createElement("div");
-//   box2.classList.add("id", "dropdown-content");
-//   box2.setAttribute("id", "dropdownContent");
-//   box.appendChild(box2);
-//   let link = document.createElement("a");
-//   link.setAttribute("id", "start");
-//   let liText = (link.innerHTML = "Play");
-//   box2.appendChild(link);
-//   let link1 = document.createElement("a");
-//   link1.setAttribute("id", "reset");
-//   let liText1 = (link1.innerHTML = "Reset");
-//   box2.appendChild(link1);
-//   let link2 = document.createElement("a");
-//   link2.setAttribute("id", "delete");
-//   let liText2 = (link2.innerHTML = "Delete");
-//   box2.appendChild(link2);
-//   container.appendChild(box);
 
 //   let dis = document.querySelector(".dropdown-content");
 //   newBtn.addEventListener("click", function () {
@@ -135,10 +139,6 @@ function addNewUser() {
 //       dis.style.display = "none";
 //     }
 //   });
-
-//   // play
-//   let play = document.querySelector("#start");
-//   let quiz = document.querySelector(".quiz");
 
 //   if (play) {
 //     play.addEventListener("click", function () {
@@ -157,155 +157,3 @@ function addNewUser() {
 //       }, 1000);
 //     });
 //   }
-
-//   // reset
-//   let reset = document.querySelector("#reset");
-//   if (reset) {
-//     reset.addEventListener("click", function () {
-//       score = 0;
-//       newBtn.innerHTML = name + "(" + score + ")";
-//       count.remove();
-//     });
-//   }
-//   let del = document.querySelector("#delete");
-//   if (del) {
-//     del.addEventListener("click", function () {
-//       newBtn.remove();
-//       quiz.remove();
-//       dis.remove();
-//     });
-//   }
-// }
-
-// // function question() {
-// //   let firstNumber = Math.floor(Math.random() * 10);
-// //   let secondNumber = Math.floor(Math.random() * 10);
-// //   let operators = [
-// //     {
-// //       sign: "+",
-// //       method: function (a, b) {
-// //         return a + b;
-// //       },
-// //     },
-// //     {
-// //       sign: "-",
-// //       method: function (a, b) {
-// //         return a - b;
-// //       },
-// //     },
-// //   ];
-// //   let selectedOperator = Math.floor(Math.random() * operators.length);
-// //   let oper = operators[selectedOperator].sign;
-// //   let q = firstNumber + oper + secondNumber + "=" + "?";
-// //   for (let i = 0; i <= 5; i++) {
-// //     document.getElementById("question").innerHTML = q;
-// //   }
-// //   let correctAnswer = operators[selectedOperator].method(
-// //     firstNumber,
-// //     secondNumber
-// //   );
-// // }
-// // function uAnswer() {
-// //   let score = document.querySelector("#score");
-// //   let newBtn = document.querySelector("#dropBtn");
-// //   let userAnswer = parseInt(document.getElementById("answer").value);
-// //   const name = username.value;
-// //   score = 0;
-// //   if (correctAnswer === userAnswer) {
-// //     alert("Great! Correct! Refresh the page to play again!");
-// //     score++;
-// //     newBtn.innerHTML = name + "(" + score + ")";
-// //   } else {
-// //     alert("Wrong! Try again!");
-// //     return (userAnswer.value = "");
-// //   }
-// //   userAnswer.value = "";
-// // }
-
-// let firstNumber = Math.floor(Math.random() * 10);
-// let secondNumber = Math.floor(Math.random() * 10);
-// let operators = [
-//   {
-//     sign: "+",
-//     method: function (a, b) {
-//       return a + b;
-//     },
-//   },
-//   {
-//     sign: "-",
-//     method: function (a, b) {
-//       return a - b;
-//     },
-//   },
-// ];
-
-// let selectedOperator = Math.floor(Math.random() * operators.length);
-
-// let oper = operators[selectedOperator].sign;
-// document.getElementById("question").innerHTML =
-//   firstNumber + oper + secondNumber + "=" + "?";
-
-// let correctAnswer = operators[selectedOperator].method(
-//   firstNumber,
-//   secondNumber
-// );
-
-// function uAnswer() {
-//   let score = document.querySelector("#score");
-//   let newBtn = document.querySelector("#dropBtn");
-//   let userAnswer = parseInt(document.getElementById("answer").value);
-//   const name = username.value;
-//   score = 0;
-//   if (correctAnswer === userAnswer) {
-//     alert("Great! Correct! Refresh the page to play again!");
-//     score++;
-//     newBtn.innerHTML = name + "(" + score + ")";
-//   } else {
-//     alert("Wrong! Try again!");
-//     return (userAnswer.value = "");
-//   }
-//   userAnswer.value = "";
-// }
-// // // start game
-
-// // let timeLeft = 10;
-// // let timerInterval;
-// // function startGame() {
-// //   // nextQuestion();
-// //   document.getElementById("start").disabled = true;
-// //   let timeDisplay = document.getElementById("timeDisplay");
-// //   timeDisplay.hidden = false;
-// //   timerInterval = setInterval(() => {
-// //     timeLeft -= 1;
-// //     timeDisplay.innerHTML = "Time Left : " + timeLeft;
-// //     if (timeLeft === 0) {
-// //       clearInterval(timerInterval);
-// //     }
-// //   }, 1000);
-// // }
-// // startGame();
-
-// //  Math Questions
-
-// // answer();
-
-// // operations.innerHTML=
-// //   var operators = [{
-// //     sign: "+",
-// //     method: function(a,b){ return a + b; }
-// //   },{
-// //     sign: "-",
-// //     method: function(a,b){ return a - b; }
-// //   }];
-
-// //   var selectedOperator = Math.floor(Math.random()*operators.length);
-
-// //   operators[selectedOperator].sign
-// // }
-
-// // function checkAnswer() {
-// //   let answer = document.getElementById("answer");
-// //   if (answer == correctAnswer) {
-// //     score += 1;
-
-// //   }

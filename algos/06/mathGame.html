@@ -16,7 +16,7 @@
   <body>
     <div class="container">
       <h1 class="m-4">Simple Math Game</h1>
-      <div id="count">Time</div>
+     
       <div class="input-group mx-auto mb-3 w-25" >
         <input
           type="text"
@@ -27,7 +27,7 @@
           id="userName"
         />
         <button
-        onclick="addNewUser()"
+        onclick="addUser()"
           class="btn btn-outline-secondary"
           type="button"
           id="button-addon2"
@@ -36,15 +36,17 @@
         </button>
 
       </div>
+      <div class="quiz">
+        <h2 id="demo"></h2>
+      </div>
+      <div id="count"><label id="minutes">00</label>
+       <label id="colon">:</label>
+       <label id="seconds">00</label></div>
+       <script src="mathGame.js"></script>
 
   </div>
 
- <div class="quiz">
-   <h2 id="demo"></h2>
-   
 
- </div>
-  <script src="mathGame.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous""></script>
   </body>
 </html>
