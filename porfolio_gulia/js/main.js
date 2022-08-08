@@ -69,24 +69,3 @@ window.addEventListener("scroll", function (e) {
 window.addEventListener("load", function () {
   scrollNav.style.visibility = "hidden";
 });
-
-// about  me cloud and ground
-// let textLength = 0;
-// let text =
-//   "Hi!I am Gulia. A web Developer.I'm very passionate and dedicated to my work. I <strong>like to code</strong> things from scratch, andenjoy bringing ideas to life in the browser.";
-
-// function type() {
-//   let textChar = text.charAt(textLength++);
-//   let paragraph = document.getElementById("message");
-//   let charElement = document.createTextNode(textChar);
-//   paragraph.appendChild(charElement);
-//   document.body.appendChild(paragraph);
-//   if (textLength < text.length + 1) {
-//     setTimeout("type()", 50);
-//   } else {
-//     text = "";
-//   }
-//   document.addEventListener("DOMContentLoaded", function () {
-//     type();
-//   });
-// }
