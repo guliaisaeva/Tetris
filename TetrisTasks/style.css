@@ -19,4 +19,13 @@ body {
 }
 .area {
   background-color: #010b01;
+  position: relative;
+}
+.newSquare {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+#object1 {
+  display: none;
 }
