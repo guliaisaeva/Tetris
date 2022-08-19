@@ -231,6 +231,7 @@
       let id = null;
       let moveRate = 30;
       let object1 = document.getElementById("object1");
+
       let resetBtn = document.querySelector("#resetBtn");
       let pauseBtn = document.querySelector("#pauseBtn");
       object1.style.display = "none";
@@ -290,7 +291,6 @@
             },
             true
           );
-
           move();
           refreshPosition();
         }
@@ -298,7 +298,6 @@
         let interval = setInterval(tetris, 1000);
         // clearInterval(interval);
         pauseBtn.addEventListener("click", function () {
-          console.log("clicked");
           clearInterval(interval);
         });
       });
@@ -309,27 +308,41 @@
       function move() {
         updateYPosition(-moveRate);
         refreshPosition();
-        addSquare();
-        // event.preventDefault();
       }
+
       // random color
       let color = ["green", "red", "pink", "yellow", "blue"];
       let randomColor = Math.floor(Math.random() * color.length);
       let newColor = color[randomColor];
       //  function to add new square
+      // let object2Size = {
+      //   width: 30,
+      //   height: 30,
+      // };
       function addSquare() {
-        // const svgns = "http:w3.org/2000/svg";
+        const svgns = "http:w3.org/2000/svg";
         let svg = document.querySelector(".area");
-        let newSquare = document.createElementNS(svg, "rect");
+        let newSquare = document.createElementNS(svgns, "rect");
         newSquare.setAttribute("x", "15");
         newSquare.setAttribute("y", "15");
         newSquare.setAttribute("height", "30");
         newSquare.setAttribute("width", "30");
         newSquare.setAttribute("fill", "red");
+        newSquare.setAttribute("id", "object2");
         svg.appendChild(newSquare);
+        console.log(newSquare);
+        let object2 = document.getElementById("object2");
+        console.log(object2);
+        // object2.style.display = "block";
+        // let interval2 = setInterval(addSquare, 1000);
+        // move();
+        // clearInterval(interval2);
       }
 
-      addSquare();
+      // addSquare();
+      // let interval2 = setInterval(addSquare, 1000);
+      // clearInterval(interval2);
+
       console.log(addSquare());
     </script>
   </body>
