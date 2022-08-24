@@ -214,8 +214,8 @@
         </svg>
 
         <div class="leftSide">
-          <button id="resetBtn" type="button">Reset</button>
-          <button id="pauseBtn" type="button">Pause</button>
+          <button onclick="play()" id="resetBtn" type="button">Reset</button>
+          <button onclick="pause()" id="pauseBtn" type="button">Pause</button>
         </div>
       </div>
     </main>
@@ -229,20 +229,24 @@
         y: 0,
       };
       let id = null;
+      let newSquare = null;
+      let paused = false;
+      let timerInterval = null;
       let moveRate = 30;
       let object1 = document.getElementById("object1");
-
       let resetBtn = document.querySelector("#resetBtn");
       let pauseBtn = document.querySelector("#pauseBtn");
-      object1.style.display = "none";
+      // object1.style.display = "none";
 
       function updateYPosition(distance) {
         position.y = position.y - distance;
         // Update y-axis position at the edge.
         if (position.y < 0) {
           position.y = 0;
-        } else if (position.y > 570) {
+        } else if (position.y === 570) {
           position.y = 570;
+          position.y = 0;
+          addSquare();
         }
       }
       // Update x-axis position.
@@ -253,6 +257,8 @@
           position.x = 0;
         } else if (position.x > 270) {
           position.x = 270;
+          position.x = 0;
+          addSquare();
         }
       }
 
@@ -263,85 +269,92 @@
         object1.setAttribute("transform", transform);
       }
 
-      resetBtn.addEventListener("click", function () {
-        object1.style.display = "block";
-        function tetris() {
-          // keyboard using
-          window.addEventListener(
-            "keydown",
-            function (event) {
-              if (event.defaultPrevented) {
-                return;
-              }
-              if (event.code === "ArrowDown") {
-                // Handle "down"
-                updateYPosition(-moveRate);
-              } else if (event.code === "ArrowUp") {
-                // Handle "up"
-                updateYPosition(moveRate);
-              } else if (event.code === "ArrowLeft") {
-                // Handle "left"
-                updateXPosition(-moveRate);
-              } else if (event.code === "ArrowRight") {
-                // Handle "right"
-                updateXPosition(moveRate);
-              }
-              refreshPosition();
-              event.preventDefault();
-            },
-            true
-          );
-          move();
-          refreshPosition();
-        }
-        // set interval
-        let interval = setInterval(tetris, 1000);
-        // clearInterval(interval);
-        pauseBtn.addEventListener("click", function () {
-          clearInterval(interval);
-        });
-      });
+      function goDown() {
+        if (paused) return;
 
-      // pause
-
-      // move function auto moving down
-      function move() {
+        // if (position.y <= 570) {
+        //   position.y += moveRate;
+        //   move();
+        //   console.log("down:" + position.y);
+        // } else if (position.y === 570) {
+        //   position.x = 0;
+        //   position.y = 0;
+        //   addSquare();
+        // }
         updateYPosition(-moveRate);
         refreshPosition();
       }
 
-      // random color
-      let color = ["green", "red", "pink", "yellow", "blue"];
-      let randomColor = Math.floor(Math.random() * color.length);
-      let newColor = color[randomColor];
-      //  function to add new square
-      // let object2Size = {
-      //   width: 30,
-      //   height: 30,
-      // };
+      // resetBtn.addEventListener("click", function () {
+      //   object1.style.display = "block";
+      //   tetris();
+
+      //   // set interval function
+      //   let interval = setInterval(tetris, 1000);
+      // });
+      function tetris() {
+        // keyboard using
+        window.addEventListener(
+          "keydown",
+          function (event) {
+            if (event.defaultPrevented) {
+              return;
+            }
+            if (event.code === "ArrowDown") {
+              // Handle "down"
+              updateYPosition(-moveRate);
+            } else if (event.code === "ArrowUp") {
+              // Handle "up"
+              updateYPosition(moveRate);
+            } else if (event.code === "ArrowLeft") {
+              // Handle "left"
+              updateXPosition(-moveRate);
+            } else if (event.code === "ArrowRight") {
+              // Handle "right"
+              updateXPosition(moveRate);
+            }
+            refreshPosition();
+            event.preventDefault();
+          },
+          true
+        );
+
+        goDown();
+        refreshPosition();
+      }
+      function play() {
+        // object1.style.display = "block";
+        addSquare();
+        let interval = setInterval(tetris, 1000);
+      }
+      function pause() {
+        paused = !paused;
+      }
+
       function addSquare() {
         const svgns = "http:w3.org/2000/svg";
         let svg = document.querySelector(".area");
-        let newSquare = document.createElementNS(svgns, "rect");
-        newSquare.setAttribute("x", "15");
-        newSquare.setAttribute("y", "15");
-        newSquare.setAttribute("height", "30");
-        newSquare.setAttribute("width", "30");
-        newSquare.setAttribute("fill", "red");
-        newSquare.setAttribute("id", "object2");
+        newSquare = document.createElementNS(svgns, "rect");
+        newSquare.setAttributeNS(null, "x", "15");
+        newSquare.setAttributeNS(null, "y", "15");
+        newSquare.setAttributeNS(null, "height", "30");
+        newSquare.setAttributeNS(null, "width", "30");
+
+        // random color
+        let color = ["green", "red", "pink", "yellow", "blue"];
+        let randomColor = Math.floor(Math.random() * color.length);
+        let newColor = color[randomColor];
+        newSquare.setAttributeNS(null, "fill", newColor);
+        // newSquare.setAttributeNS(null, "id", "object1");
         svg.appendChild(newSquare);
         console.log(newSquare);
-        let object2 = document.getElementById("object2");
-        console.log(object2);
+        // let object2 = document.getElementById("object2");
+        // console.log(object2);
         // object2.style.display = "block";
         // let interval2 = setInterval(addSquare, 1000);
         // move();
         // clearInterval(interval2);
       }
-
-      // addSquare();
-      // let interval2 = setInterval(addSquare, 1000);
-      // clearInterval(interval2);
 
       console.log(addSquare());
     </script>
