@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Tetris Task</title>
     <link rel="stylesheet" href="style.css" />
     <style></style>
   </head>
@@ -202,7 +202,7 @@
           <line x1="0" y1="600" x2="300" y2="600" style="stroke: white" />
 
           <!-- small yellow rectangle-->
-          <rect
+          <!-- <rect
             id="object1"
             x="15"
             y="15"
@@ -210,7 +210,7 @@
             height="30"
             fill="yellow"
             stroke-width="0.5"
-          />
+          /> -->
         </svg>
 
         <div class="leftSide">
@@ -236,15 +236,58 @@
       let object1 = document.getElementById("object1");
       let resetBtn = document.querySelector("#resetBtn");
       let pauseBtn = document.querySelector("#pauseBtn");
-      // object1.style.display = "none";
 
+      // function create  square
+      function addSquare() {
+        let svg = document.querySelector(".area");
+        newSquare = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "rect"
+        );
+        newSquare.setAttributeNS(null, "x", "15");
+        newSquare.setAttributeNS(null, "y", "15");
+        newSquare.setAttributeNS(null, "height", "30");
+        newSquare.setAttributeNS(null, "width", "30");
+
+        // random color
+        let color = ["green", "red", "pink", "yellow", "blue"];
+        let randomColor = Math.floor(Math.random() * color.length);
+        let newColor = color[randomColor];
+        newSquare.setAttributeNS(null, "fill", newColor);
+        newSquare.setAttributeNS(null, "id", "object1");
+        svg.appendChild(newSquare);
+        console.log(newSquare);
+      }
+      // function Play
+      function play() {
+        let interval = setInterval(tetris, 1000);
+        addSquare();
+      }
+
+      // function pause
+      function pause() {
+        paused = !paused;
+        window.addEventListener("keydown", function (event) {
+          event.preventDefault();
+          event.stopPropagation();
+        });
+      }
+      // refresh position
+      function refreshPosition() {
+        let x = position.x - object1Size.width / 2;
+        let y = position.y - object1Size.height / 2;
+        let transform = "translate(" + x + " " + y + ")";
+        newSquare.setAttribute("transform", transform);
+      }
+
+      // Update y-axis position.
       function updateYPosition(distance) {
         position.y = position.y - distance;
         // Update y-axis position at the edge.
         if (position.y < 0) {
           position.y = 0;
-        } else if (position.y === 570) {
-          position.y = 570;
+        } else if (position.y === 600) {
+          position.y = 600;
           position.y = 0;
           addSquare();
         }
@@ -258,40 +301,15 @@
         } else if (position.x > 270) {
           position.x = 270;
           position.x = 0;
-          addSquare();
         }
-      }
-
-      function refreshPosition() {
-        let x = position.x - object1Size.width / 2;
-        let y = position.y - object1Size.height / 2;
-        let transform = "translate(" + x + " " + y + ")";
-        object1.setAttribute("transform", transform);
       }
 
       function goDown() {
         if (paused) return;
-
-        // if (position.y <= 570) {
-        //   position.y += moveRate;
-        //   move();
-        //   console.log("down:" + position.y);
-        // } else if (position.y === 570) {
-        //   position.x = 0;
-        //   position.y = 0;
-        //   addSquare();
-        // }
         updateYPosition(-moveRate);
         refreshPosition();
       }
 
-      // resetBtn.addEventListener("click", function () {
-      //   object1.style.display = "block";
-      //   tetris();
-
-      //   // set interval function
-      //   let interval = setInterval(tetris, 1000);
-      // });
       function tetris() {
         // keyboard using
         window.addEventListener(
@@ -318,45 +336,9 @@
           },
           true
         );
-
         goDown();
         refreshPosition();
       }
-      function play() {
-        // object1.style.display = "block";
-        addSquare();
-        let interval = setInterval(tetris, 1000);
-      }
-      function pause() {
-        paused = !paused;
-      }
-
-      function addSquare() {
-        const svgns = "http:w3.org/2000/svg";
-        let svg = document.querySelector(".area");
-        newSquare = document.createElementNS(svgns, "rect");
-        newSquare.setAttributeNS(null, "x", "15");
-        newSquare.setAttributeNS(null, "y", "15");
-        newSquare.setAttributeNS(null, "height", "30");
-        newSquare.setAttributeNS(null, "width", "30");
-
-        // random color
-        let color = ["green", "red", "pink", "yellow", "blue"];
-        let randomColor = Math.floor(Math.random() * color.length);
-        let newColor = color[randomColor];
-        newSquare.setAttributeNS(null, "fill", newColor);
-        // newSquare.setAttributeNS(null, "id", "object1");
-        svg.appendChild(newSquare);
-        console.log(newSquare);
-        // let object2 = document.getElementById("object2");
-        // console.log(object2);
-        // object2.style.display = "block";
-        // let interval2 = setInterval(addSquare, 1000);
-        // move();
-        // clearInterval(interval2);
-      }
-
-      console.log(addSquare());
     </script>
   </body>
 </html>
