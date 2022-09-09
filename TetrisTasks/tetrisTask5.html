@@ -59,13 +59,14 @@
   </head>
   <body>
     <div class="btn">
-      <button id="start" class="button">Start</button>
+      <button onclick="startGame()" id="start" class="button">Start</button>
       <button id="pause" class="button">Pause</button>
     </div>
     <div class="main"></div>
 
     <script>
       const main = document.querySelector(".main");
+
       const playfield = [
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -90,8 +91,14 @@
       ];
 
       const gameSpeed = 400;
+      function getRandomColor() {
+        let color = ["green", "red", "pink", "yellow", "blue"];
+        let randomColor = Math.floor(Math.random() * color.length);
+        let newColor = color[randomColor];
+      }
+
       let activeTetro = {
-        x: 0,
+        x: 3,
         y: 0,
         shape: [
           [1, 0, 0],
@@ -103,19 +110,22 @@
       //function drawField dy cells inside of main area
       function drawField() {
         let mainInnerHtml = "";
+
         for (let y = 0; y < playfield.length; y++) {
           for (let x = 0; x < playfield[y].length; x++) {
             if (playfield[y][x] === 1) {
-              mainInnerHtml += `<div class ="cell movingCell"></div>`;
+              mainInnerHtml += `<div  class ="cell movingCell"></div>`;
             } else if (playfield[y][x] === 2) {
               mainInnerHtml += `<div class ="cell fixedCell"></div>`;
             } else {
-              mainInnerHtml += `<div class ="cell"></div>`;
+              mainInnerHtml += `<div  class ="cell"></div>`;
             }
           }
         }
         main.innerHTML = mainInnerHtml;
       }
+      const squere = document.querySelectorAll(".movingCell");
+      console.log(squere);
       // remove after tetro moving old tetro position
       function removePrevActiveTetro() {
         for (let y = 0; y < playfield.length; y++) {
@@ -321,14 +331,15 @@
       drawField();
 
       // function for starting to move down
+
       function startGame() {
         moveTetroDown();
         moveToDown();
         drawField();
         setTimeout(startGame, gameSpeed);
       }
-
-      setTimeout(startGame, gameSpeed);
+      let setTiming = setTimeout(startGame, gameSpeed);
+      clearTimeout(setTiming);
     </script>
   </body>
 </html>
