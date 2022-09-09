@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tetris Task</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        text-decoration: none;
+        list-style: none;
+      }
+
+      body {
+        width: 100vw;
+        height: 100vh;
+        background-color: black;
+      }
+      .btn {
+        width: 100%;
+        text-align: center;
+      }
+      .btn button {
+        padding: 8px 10px;
+        border: none;
+        border-radius: 10px;
+        color: white;
+      }
+      #start {
+        background: green;
+      }
+      #pause {
+        background: red;
+      }
+      .main {
+        width: 320px;
+        height: 620px;
+        margin: 100px auto 0;
+        border: 10px solid silver;
+        font-size: 0;
+      }
+      .cell {
+        width: 30px;
+        height: 30px;
+        border: 1px solid silver;
+        display: inline-block;
+      }
+      .movingCell {
+        background-color: blue;
+      }
+      .fixedCell {
+        background-color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="btn">
+      <button id="start" class="button">Start</button>
+      <button id="pause" class="button">Pause</button>
+    </div>
+    <div class="main"></div>
+
+    <script>
+      const main = document.querySelector(".main");
+      const playfield = [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      ];
+
+      const gameSpeed = 400;
+      let activeTetro = {
+        x: 0,
+        y: 0,
+        shape: [
+          [1, 0, 0],
+          [1, 0, 0],
+          [1, 1, 0],
+        ],
+      };
+
+      //function drawField dy cells inside of main area
+      function drawField() {
+        let mainInnerHtml = "";
+        for (let y = 0; y < playfield.length; y++) {
+          for (let x = 0; x < playfield[y].length; x++) {
+            if (playfield[y][x] === 1) {
+              mainInnerHtml += `<div class ="cell movingCell"></div>`;
+            } else if (playfield[y][x] === 2) {
+              mainInnerHtml += `<div class ="cell fixedCell"></div>`;
+            } else {
+              mainInnerHtml += `<div class ="cell"></div>`;
+            }
+          }
+        }
+        main.innerHTML = mainInnerHtml;
+      }
+
+      // updating active tetro
+      function addActiveTetro() {
+        for (let y = 0; y < activeTetro.shape.length; y++) {
+          for (let x = 0; x < activeTetro.shape[y].length; x++) {
+            if (activeTetro.shape[y][x]) {
+              playfield[activeTetro.y + y][activeTetro.x + x] =
+                activeTetro.shape[y][x];
+            }
+          }
+        }
+      }
+      // control if tetromino is at the end of area or has place to move
+      function canTetroMoveDown() {
+        for (let y = 0; y < playfield.length; y++) {
+          for (let x = 0; x < playfield[y].length; x++) {
+            if (playfield[y][x] === 1) {
+              if (y === playfield.length - 1 || playfield[y + 1][x] === 2) {
+                return false;
+              }
+            }
+          }
+        }
+        return true;
+      }
+
+      // function moveTo Down() let tetrominos move to down
+      function moveToDown() {
+        if (canTetroMoveDown()) {
+          for (let y = playfield.length - 1; y >= 0; y--) {
+            for (let x = 0; x < playfield[y].length; x++) {
+              if (playfield[y][x] === 1) {
+                playfield[y + 1][x] = 1;
+                playfield[y][x] = 0;
+              }
+            }
+          }
+        } else {
+          fixedTetro();
+        }
+      }
+
+      // // function moving tetro to left
+      function canTetroMoveLeft() {
+        for (let y = 0; y < playfield.length; y++) {
+          for (let x = 0; x < playfield[y].length; x++) {
+            if (playfield[y][x] === 1) {
+              if (x === 0 || playfield[y][x - 1] === 2) {
+                return false;
+              }
+            }
+          }
+        }
+        return true;
+      }
+
+      function moveToLeft() {
+        if (canTetroMoveLeft()) {
+          for (let y = playfield.length - 1; y >= 0; y--) {
+            for (let x = 0; x < playfield[y].length; x++) {
+              if (playfield[y][x] === 1) {
+                playfield[y][x - 1] = 1;
+                playfield[y][x] = 0;
+              }
+            }
+          }
+        }
+      }
+
+      // function moving tetro to right
+      function canTetroMoveRight() {
+        for (let y = 0; y < playfield.length; y++) {
+          for (let x = 0; x < playfield[y].length; x++) {
+            if (playfield[y][x] === 1) {
+              if (y === 9 || playfield[y][x + 1] === 2) {
+                return false;
+              }
+            }
+          }
+        }
+        return true;
+      }
+
+      function moveToRight() {
+        if (canTetroMoveRight()) {
+          for (let y = playfield.length - 1; y >= 0; y--) {
+            for (let x = 9; x >= 0; x--) {
+              if (playfield[y][x] === 1) {
+                playfield[y][x + 1] = 1;
+                playfield[y][x] = 0;
+              }
+            }
+          }
+        }
+      }
+      // control lines if they are filled or not
+      function removeFullLines() {
+        let canRemoveLine = true;
+        for (let y = 0; y < playfield.length; y++) {
+          for (let x = 0; x < playfield[y].length; x++) {
+            if (playfield[y][x] !== 2) {
+              canRemoveLine = false;
+              break;
+            }
+          }
+          if (canRemoveLine) {
+            playfield.splice(y, 1);
+            playfield.splice(0, 0, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+          }
+          canRemoveLine = true;
+        }
+      }
+      // function fixedTetro
+      function fixedTetro() {
+        for (let y = 0; y < playfield.length; y++) {
+          for (let x = 0; x < playfield[y].length; x++) {
+            if (playfield[y][x] === 1) {
+              playfield[y][x] = 2;
+            }
+          }
+        }
+
+        removeFullLines();
+
+        playfield[0] = [0, 0, 0, 1, 1, 0, 0, 0, 0, 0];
+        playfield[1] = [0, 0, 0, 1, 1, , 0, 0, 0, 0];
+      }
+      // drawField();
+
+      document.onkeydown = function (e) {
+        e.preventDefault();
+        console.log(e.keyCode);
+        if (e.keyCode === 37) {
+          moveToLeft();
+        } else if (e.keyCode === 39) {
+          //to right
+          moveToRight();
+        } else if (e.keyCode === 40) {
+          // speed up to down
+          moveToDown();
+        }
+        drawField();
+      };
+      addActiveTetro();
+      drawField();
+      // function for starting to move down
+      // function startGame() {
+      //   moveToDown();
+      //   drawField();
+      //   setTimeout(startGame, gameSpeed);
+      // }
+
+      // setTimeout(startGame, gameSpeed);
+    </script>
+  </body>
+</html>
