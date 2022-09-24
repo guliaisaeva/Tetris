@@ -41,7 +41,7 @@
       .main {
         width: 320px;
         height: 620px;
-        margin: 40px auto 0;
+        margin: 100px auto 0;
         border: 10px solid silver;
         font-size: 0;
       }
@@ -62,25 +62,51 @@
         margin: auto;
         font-size: 20px;
       }
+      #next-tetro{
+        position: absolute;
+        top:50px;
+        left:400px;
+        font-size: 0;
+      }
+      #game-over{
+        font-size: 50px;
+        color: red;
+        text-align: center;
+        position: absolute;
+        display: none;
+        top:50%;
+        left:50%;
+        transform:translate(-50%,-50%);
+      }
     </style>
   </head>
   <body>
     <div class="game">
-      <div>Level: <span id="level">0</span></div>
-      <div>Score: <span id="score">0</span></div>
-
       <div class="btn">
         <button id="start" class="button">Start</button>
         <button id="pause" class="button">Pause</button>
       </div>
+      <div>Level: <span id="level">0</span></div>
+      <div>Score: <span id="score">0</span></div>
+
+    
       <div class="main"></div>
+      <div id="game-over">Game Over</div>
+      <div id="next-tetro"></div>
     </div>
 
     <script>
       const main = document.querySelector(".main");
       const scoreEl = document.getElementById("score");
       const levelEl = document.getElementById("level");
+      const nextTetroEl=document.getElementById("next-tetro");
+      const startBtn=document.getElementById("start");
+      const pauseBtn=document.getElementById("pause");
+      const gameOver=document.getElementById("game-over");
       const currentlevel = 1;
+      let isPaused=true;
+      let gameTimerID;
+      let score = 0;
       let possibleLevel = {
         1: { scorePerLine: 10, speed: 400, nextLevelScore: 100 },
         2: { scorePerLine: 15, speed: 300, nextLevelScore: 200 },
@@ -89,7 +115,7 @@
         5: { scorePerLine: 30, speed: 50, nextLevelScore: Infinity },
       };
 
-      const playfield = [
+      let playfield = [
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -110,34 +136,27 @@
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      
       ];
 
-      let score = 0;
+    
       // function getRandomColor() {
       //   let color = ["green", "red", "pink", "yellow", "blue"];
       //   let randomColor = Math.floor(Math.random() * color.length);
       //   let newColor = color[randomColor];
       // }
 
-      let activeTetro = {
-        x: 0,
-        y: 0,
-        shape: [
-          [1, 0, 0],
-          [1, 0, 0],
-          [1, 1, 0],
-        ],
-      };
+  
       let figures = {
         O: [
           [1, 1],
           [1, 1],
         ],
         I: [
-          [0, 1, 0, 0],
-          [0, 1, 0, 0],
-          [0, 1, 0, 0],
-          [0, 1, 0, 0],
+          [0, 0, 0, 0],
+          [1, 1, 1, 1],
+          [0, 0, 0, 0],
+          [0, 0, 0, 0],
         ],
         S: [
           [0, 1, 1],
@@ -165,6 +184,9 @@
           [0, 0, 0],
         ],
       };
+      let activeTetro = getNewTetro();
+      let nextTetro=getNewTetro();
+     
       //function drawField dy cells inside of main area
       function drawField() {
         let mainInnerHtml = "";
@@ -182,7 +204,22 @@
         }
         main.innerHTML = mainInnerHtml;
       }
-
+      //function to drow next shape
+    function drawNextTetro(){
+      let nextTetroInnerHtml = "";
+   for(let y=0;y<nextTetro.shape.length;y++){
+    for(let x=0;x<nextTetro.shape[y].length;x++){
+    if(nextTetro.shape[y][x]){
+  nextTetroInnerHtml +=`<div class="cell movingCell"></div>`
+}
+    else{
+      nextTetroInnerHtml += `<div  class ="cell"></div>`;
+}
+    }
+    nextTetroInnerHtml+="<br/>"
+   }
+   nextTetroEl.innerHTML=nextTetroInnerHtml;
+    }
       // remove after tetro moving old tetro position
       function removePrevActiveTetro() {
         for (let y = 0; y < playfield.length; y++) {
@@ -256,16 +293,16 @@
         }
         switch (filledlines) {
           case 1:
-            score += 10;
+            score += possibleLevel[currentlevel].scorePerLine;
             break;
           case 2:
-            score += 10 * 3;
+            score += possibleLevel[currentlevel].scorePerLine * 3;
             break;
           case 3:
-            score += 10 * 6;
+            score +=  possibleLevel[currentlevel].scorePerLine * 6;
             break;
           case 4:
-            score += 10 * 12;
+            score +=  possibleLevel[currentlevel].scorePerLine * 12;
             break;
         }
 
@@ -280,7 +317,11 @@
       function getNewTetro() {
         const possibleFigure = "OILJTSZ";
         const randomFigure = Math.floor(Math.random() * 7);
-        return figures[possibleFigure[randomFigure]];
+        const newTetro=figures[possibleFigure[randomFigure]];
+        return {
+        x: Math.floor((10 - newTetro[0].length) / 2),
+        y:0,
+        shape:newTetro}
       }
 
       // function fixedTetro
@@ -296,103 +337,71 @@
 
       // function to move shape to down
       function moveTetroDown() {
-        activeTetro.y += 1;
+        if(!isPaused){
+          activeTetro.y += 1;
         if (hasCollisions()) {
           activeTetro.y -= 1;
           fixedTetro();
           removeFullLines();
-          activeTetro.shape = getNewTetro();
-          activeTetro.x = Math.floor((10 - activeTetro.shape[0].length) / 2);
-          activeTetro.y = 0;
+          activeTetro= nextTetro;
+          if (hasCollisions()){
+            // alert("Game Over")
+            reset();
+          }
+          nextTetro=getNewTetro();
+         
         }
+        }
+  
       }
 
-      // // control if tetromino is at the end of area or has place to move
-      // function canTetroMoveDown() {
-      //   for (let y = 0; y < playfield.length; y++) {
-      //     for (let x = 0; x < playfield[y].length; x++) {
-      //       if (playfield[y][x] === 1) {
-      //         if (y === playfield.length - 1 || playfield[y + 1][x] === 2) {
-      //           return false;
-      //         }
-      //       }
-      //     }
-      //   }
-      //   return true;
-      // }
+    //function to drop quick the tetromino
+   function dropTetro(){
+    for(let y=activeTetro.y;y<playfield.length;y++){
+      activeTetro.y+=1;
+      if(hasCollisions()){
+      activeTetro.y-=1;
+      break;
+    }
+   }
+    }
+ 
+    // to reset the game
 
-      // // function moveTo Down() let tetrominos move to down
-      // function moveToDown() {
-      //   if (canTetroMoveDown()) {
-      //     for (let y = playfield.length - 1; y >= 0; y--) {
-      //       for (let x = 0; x < playfield[y].length; x++) {
-      //         if (playfield[y][x] === 1) {
-      //           playfield[y + 1][x] = 1;
-      //           playfield[y][x] = 0;
-      //         }
-      //       }
-      //     }
-      //   } else {
-      //     fixedTetro();
-      //   }
-      // }
+    function reset(){
+      isPaused=true;
+      clearTimeout(gameTimerID);
+     playfield = [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      
+      ];
+      drawField();
+      gameOver.style.display="block";
 
-      // // // function moving tetro to left
-      // function canTetroMoveLeft() {
-      //   for (let y = 0; y < playfield.length; y++) {
-      //     for (let x = 0; x < playfield[y].length; x++) {
-      //       if (playfield[y][x] === 1) {
-      //         if (x === 0 || playfield[y][x - 1] === 2) {
-      //           return false;
-      //         }
-      //       }
-      //     }
-      //   }
-      //   return true;
-      // }
-
-      // function moveToLeft() {
-      //   if (canTetroMoveLeft()) {
-      //     for (let y = playfield.length - 1; y >= 0; y--) {
-      //       for (let x = 0; x < playfield[y].length; x++) {
-      //         if (playfield[y][x] === 1) {
-      //           playfield[y][x - 1] = 1;
-      //           playfield[y][x] = 0;
-      //         }
-      //       }
-      //     }
-      //   }
-      // }
-
-      // // function moving tetro to right
-      // function canTetroMoveRight() {
-      //   for (let y = 0; y < playfield.length; y++) {
-      //     for (let x = 0; x < playfield[y].length; x++) {
-      //       if (playfield[y][x] === 1) {
-      //         if (y === 9 || playfield[y][x + 1] === 2) {
-      //           return false;
-      //         }
-      //       }
-      //     }
-      //   }
-      //   return true;
-      // }
-
-      // function moveToRight() {
-      //   if (canTetroMoveRight()) {
-      //     for (let y = playfield.length - 1; y >= 0; y--) {
-      //       for (let x = 9; x >= 0; x--) {
-      //         if (playfield[y][x] === 1) {
-      //           playfield[y][x + 1] = 1;
-      //           playfield[y][x] = 0;
-      //         }
-      //       }
-      //     }
-      //   }
-      // }
+    }
 
       document.onkeydown = function (e) {
-        e.preventDefault();
+        if(!isPaused){
+          e.preventDefault();
         console.log(e.keyCode);
         if (e.keyCode === 37) {
           //to left
@@ -413,25 +422,65 @@
           //to up  rotate
           rotateTetro();
         }
+        else if(e.keyCode===32){
+          //when spacebar is pressed,tetromino drop to quick down
+          dropTetro()
+        }
+
+        updateGameState();
+    
+        }
+       
+      };
+    //updating of Game state
+    function updateGameState(){
+      if(!isPaused){
         addActiveTetro();
         drawField();
-      };
+        drawNextTetro();
+      }
+        }
+
+      //the game will paused on click pause button
+       pauseBtn.addEventListener("click",(e)=>{
+       if(e.target.innerHTML==="Pause") {
+        e.target.innerHTML="Play";
+        clearTimeout(gameTimerID);
+       }
+       else{
+        e.target.innerHTML="Pause"
+        gameTimerID=setTimeout(startGame, possibleLevel[currentlevel].speed);
+       }
+      isPaused=!isPaused;
+    console.log("works");
+       })
+
+       //the game will start on click start button
+     startBtn.addEventListener("click",(e)=>{
+      e.target.innerHTML="Start Again";
+      isPaused=false;
+      gameTimerID=setTimeout(startGame, possibleLevel[currentlevel].speed);
+      gameOver.style.display="none";   
+    });
+
 
       scoreEl.innerHTML = score;
       levelEl.innerHTML = currentlevel;
-      addActiveTetro();
       drawField();
+ 
 
       // function for starting to move down
 
       function startGame() {
-        moveTetroDown();
-        addActiveTetro();
-        drawField();
-        setTimeout(startGame, possibleLevel[currentlevel].speed);
+      
+          moveTetroDown();
+          if(!isPaused){
+          updateGameState();
+          gameTimerID= setTimeout(startGame, possibleLevel[currentlevel].speed);
+        }
+      
       }
 
-      setTimeout(startGame, possibleLevel[currentlevel].speed);
-    </script>
+          </script>
   </body>
 </html>
