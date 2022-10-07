@@ -18,9 +18,23 @@
       body {
         width: 100vw;
         height: 100vh;
-        background-color: black;
+        background-color:#2C2E43;
         color: white;
         font-family: Arial, Helvetica, sans-serif;
+        display: grid;
+        place-items: center;
+        background-image: url(https://images.unsplash.com/photo-1530543787849-128d94430c6b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        object-fit: cover;
+      }
+      
+      .container{
+        display: flex; 
+        justify-content: center;
+        gap: 2rem;
+      
       }
       .btn {
         width: 100%;
@@ -42,13 +56,14 @@
         width: 320px;
         height: 620px;
         margin: 100px auto 0;
-        border: 10px solid silver;
+        border: 10px solid #595260;
         font-size: 0;
+        background-color: #2C2E43;
       }
       .cell {
         width: 30px;
         height: 30px;
-        border: 1px solid silver;
+        border: 1px solid  silver;
         display: inline-block;
       }
       .movingCell {
@@ -63,10 +78,11 @@
         font-size: 20px;
       }
       #next-tetro{
-        position: absolute;
-        top:50px;
-        left:400px;
+        /* position: absolute;
+        left:40%; */
         font-size: 0;
+        background-color: black;
+        display: inline-block;
       }
       #game-over{
         font-size: 50px;
@@ -76,24 +92,51 @@
         display: none;
         top:50%;
         left:50%;
-        transform:translate(-50%,-50%);
+        transform:translate(-83%,-50%);
+      }
+      .levelScorePanel{
+        font-size: 1.5rem;
+        display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      font-weight: 800;
+      color: #B2B1B9;
+      }
+      .levelScorePanel #level,.levelScorePanel #score{
+        color: black;
+      }
+      .levelScorePanel #level:hover,.levelScorePanel #score:hover{
+        color:  red;
+      }
+      .topDisplay{
+        display: flex;
+        gap: 3rem;
       }
     </style>
   </head>
   <body>
-    <div class="game">
+    <div class="container">
+      <div class="game">
+
+        <div class="topDisplay">
+          <div class="levelScorePanel">
+            <div>Level: <span id="level">0</span></div>
+            <div>Score: <span id="score">0</span></div>
+          </div>
+          <div id="next-tetro"></div>
+        </div>
+      
+        <div class="main">
+        </div>
+        <div id="game-over">Game Over</div>
+      </div>
+   
       <div class="btn">
         <button id="start" class="button">Start</button>
         <button id="pause" class="button">Pause</button>
       </div>
-      <div>Level: <span id="level">0</span></div>
-      <div>Score: <span id="score">0</span></div>
-
-    
-      <div class="main"></div>
-      <div id="game-over">Game Over</div>
-      <div id="next-tetro"></div>
     </div>
+   
 
     <script>
       const main = document.querySelector(".main");
@@ -149,8 +192,10 @@
   
       let figures = {
         O: [
-          [1, 1],
-          [1, 1],
+          [0, 0, 0],
+          [0, 1, 1],
+          [0, 1, 1],
+        
         ],
         I: [
           [0, 0, 0, 0],
