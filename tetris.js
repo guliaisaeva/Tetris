@@ -16,7 +16,9 @@ let possibleLevel = {
   4: { scorePerLine: 25, speed: 100, nextLevelScore: 400 },
   5: { scorePerLine: 30, speed: 50, nextLevelScore: Infinity },
 };
+const second=1000;
 
+//playfield with rows and columns,where 0 is empty cell
 let playfield = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -26,7 +28,7 @@ let playfield = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -40,6 +42,7 @@ let playfield = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 
 ];
+
 
 
 // function getRandomColor() {
@@ -72,6 +75,7 @@ let figures = {
     [0, 1, 1],
     [0, 0, 0],
   ],
+
   L: [
     [1, 0, 0],
     [1, 0, 0],
@@ -91,18 +95,26 @@ let figures = {
 let activeTetro = getNewTetro();
 let nextTetro = getNewTetro();
 
+
 //function drawField dy cells inside of main area
+//y -horizontal(column) ,x-vertical(row)
+// playfield[y] current row
+// playfield[y][x]  current row and current cell
+// 1=not empty cell -moving cell
+// 2=fixed figure-fixed cell
+
 function drawField() {
   let mainInnerHtml = "";
-
   for (let y = 0; y < playfield.length; y++) {
     for (let x = 0; x < playfield[y].length; x++) {
+
       if (playfield[y][x] === 1) {
         mainInnerHtml += `<div  class ="cell movingCell"></div>`;
       } else if (playfield[y][x] === 2) {
         mainInnerHtml += `<div class ="cell fixedCell"></div>`;
       } else {
-        mainInnerHtml += `<div  class ="cell"></div>`;
+        //add empty cells 10x20
+        mainInnerHtml += `<div class ="cell"></div>`;
       }
     }
   }
@@ -140,6 +152,7 @@ function addActiveTetro() {
   for (let y = 0; y < activeTetro.shape.length; y++) {
     for (let x = 0; x < activeTetro.shape[y].length; x++) {
       if (activeTetro.shape[y][x] === 1) {
+        //we ad d +y or +x in order to go one step more
         playfield[activeTetro.y + y][activeTetro.x + x] =
           activeTetro.shape[y][x];
       }
@@ -161,14 +174,21 @@ function rotateTetro() {
 // rotateTetro();
 
 // control if tetromino has collision
+//check if figure don't go out of field
 function hasCollisions() {
-  for (let y = 0; y < activeTetro.shape.length; y++) {
-    for (let x = 0; x < activeTetro.shape[y].length; x++) {
+  const height=activeTetro.shape.length;
+  const width=activeTetro.shape[0].length;
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      const s=activeTetro.shape[y][x]; // 1,0
       if (
-        activeTetro.shape[y][x] &&
+
+    1 &&
+        //vertical
         (playfield[activeTetro.y + y] === undefined ||
-          playfield[activeTetro.y + y][activeTetro.x + x] === undefined ||
-          playfield[activeTetro.y + y][activeTetro.x + x] === 2)
+          //if figure out of left and right field
+          playfield[activeTetro.y + y][activeTetro.x + x] === undefined ||  //meet end of field
+          playfield[activeTetro.y + y][activeTetro.x + x] === 2) //if there is fixed figure
       ) {
         return true;
       }
@@ -183,14 +203,17 @@ function removeFullLines() {
   filledlines = 0;
   for (let y = 0; y < playfield.length; y++) {
     for (let x = 0; x < playfield[y].length; x++) {
+      //check if we have empty line,if have don't remove
       if (playfield[y][x] !== 2) {
         canRemoveLine = false;
-        break;
+        break;  ///break our loop
       }
     }
+    //if we have filled line,we can remove
     if (canRemoveLine) {
-      playfield.splice(y, 1);
-      playfield.splice(0, 0, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+      //slice for removing .Here y is index(row) 1=how many rows should be removed-)one line
+      playfield.splice(y, 1); //remove one line
+      playfield.splice(0, 0, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]); //0,0 are deleted and array is added,because when we delete,row also will be deleted
       filledlines += 1;
     }
     canRemoveLine = true;
@@ -220,10 +243,12 @@ function removeFullLines() {
 // function to get new shape or tetromino
 function getNewTetro() {
   const possibleFigure = "OILJTSZ";
-  const randomFigure = Math.floor(Math.random() * 7);
-  const newTetro = figures[possibleFigure[randomFigure]];
+  const randomFigure = Math.floor(Math.random() * possibleFigure.length); // index(number)
+  const figureKey=possibleFigure[randomFigure]; // example:O,I,L etc.
+  const newTetro = figures[figureKey];  // two-dimensional array of figure
+  const centerCol=Math.floor((10 - newTetro[0].length)/2);
   return {
-    x: Math.floor((10 - newTetro[0].length) / 2),
+    x: centerCol,
     y: 0,
     shape: newTetro
   };
@@ -234,7 +259,7 @@ function fixedTetro() {
   for (let y = 0; y < playfield.length; y++) {
     for (let x = 0; x < playfield[y].length; x++) {
       if (playfield[y][x] === 1) {
-        playfield[y][x] = 2;
+        playfield[y][x] = 2; // 2 is fixed figure/cell if figure at the end of field,will turn to fixed
       }
     }
   }
@@ -242,20 +267,20 @@ function fixedTetro() {
 
 // function to move shape to down
 function moveTetroDown() {
-  if (!isPaused) {
-    activeTetro.y += 1;
-    if (hasCollisions()) {
-      activeTetro.y -= 1;
-      fixedTetro();
-      removeFullLines();
-      activeTetro = nextTetro;
-      if (hasCollisions()) {
-        // alert("Game Over")
-        reset();
-      }
-      nextTetro = getNewTetro();
+  if(isPaused) return;
 
+  activeTetro.y += 1;
+  if (hasCollisions()) {
+    activeTetro.y -= 1;
+    fixedTetro(); //figure at the end of filed to fixed figure
+    removeFullLines(); //if line is full,it should be remove
+    activeTetro = nextTetro;
+    if (hasCollisions()) {
+      // alert("Game Over")
+      reset();
     }
+    nextTetro = getNewTetro();
+
   }
 
 }
@@ -297,32 +322,33 @@ function reset() {
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-
   ];
   drawField();
   gameOver.style.display = "block";
 
 }
 
+//for using keyboard keys
 document.onkeydown = function (e) {
   if (!isPaused) {
     e.preventDefault();
     console.log(e.keyCode);
     if (e.keyCode === 37) {
-      //to left
+      //move to left
       activeTetro.x -= 1;
       if (hasCollisions()) {
         activeTetro.x += 1;
       }
     } else if (e.keyCode === 39) {
-      //to right
+      //move to right
       activeTetro.x += 1;
       if (hasCollisions()) {
         activeTetro.x -= 1;
       }
     } else if (e.keyCode === 40) {
       // speed up to down
-      moveTetroDown();
+    moveTetroDown();
+      // drawField(); //for a smoother moving
     } else if (e.keyCode === 38) {
       //to up  rotate
       rotateTetro();
@@ -356,7 +382,7 @@ pauseBtn.addEventListener("click", (e) => {
     e.target.innerHTML = "Pause";
     gameTimerID = setTimeout(startGame, possibleLevel[currentlevel].speed);
   }
-  isPaused = !isPaused;
+  isPaused = !isPaused; //return false to true
   console.log("works");
 });
 
@@ -364,7 +390,8 @@ pauseBtn.addEventListener("click", (e) => {
 startBtn.addEventListener("click", (e) => {
   e.target.innerHTML = "Start Again";
   isPaused = false;
-  gameTimerID = setTimeout(startGame, possibleLevel[currentlevel].speed);
+  // gameTimerID = setTimeout(startGame, possibleLevel[currentlevel].speed);
+  gameTimerID=setTimeout(startGame,second)
   gameOver.style.display = "none";
 });
 
@@ -377,10 +404,9 @@ drawField();
 // function for starting to move down
 
 function startGame() {
-
   moveTetroDown();
   if (!isPaused) {
     updateGameState();
-    gameTimerID = setTimeout(startGame, possibleLevel[currentlevel].speed);
+    gameTimerID = setTimeout(startGame, second);
   }
 }
