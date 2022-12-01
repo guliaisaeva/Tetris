@@ -112,7 +112,12 @@ function drawField() {
         mainInnerHtml += `<div  class ="cell movingCell"></div>`;
       } else if (playfield[y][x] === 2) {
         mainInnerHtml += `<div class ="cell fixedCell"></div>`;
-      } else {
+
+      }
+      else if(playfield[y][x] === 3){
+        mainInnerHtml += `<div class ="cell projectionCell"></div>`;
+      }
+      else {
         //add empty cells 10x20
         mainInnerHtml += `<div class ="cell"></div>`;
       }
@@ -159,7 +164,61 @@ function addActiveTetro() {
     }
   }
 }
+// function draw projection
+function addProjection(){
+  cleanProjection();
+  let row;
+  const width=activeTetro.shape[0].length;
+  const height=activeTetro.shape.length;
+  for ( row = activeTetro.y; row < playfield.length; row++) {
+    if(hasProjectionCollisions(row)){
+   break
+    }
+  }
+  console.log(row)
+  console.log(activeTetro)
 
+  row--;  //use row where the collusion didnt happen
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      if (activeTetro.shape[y][x] === 1 && playfield[row+y][activeTetro.x+x]===0) {
+        playfield[row + y][activeTetro.x + x] = 3;
+      }
+    }
+  }
+}
+ //function check if Projection has Collisions
+function hasProjectionCollisions(row) {
+  for (let y = 0; y < activeTetro.shape.length; y++) {
+    for (let x = 0; x < activeTetro.shape[y].length; x++) {
+      const s=activeTetro.shape[y][x]; // 1,0
+      // console.log(row+y)
+
+      if (
+        s &&
+      ( playfield[row + y] === undefined ||
+        playfield[row + y][activeTetro.x + x] === undefined ||
+        playfield[row + y][activeTetro.x + x] === 2)
+      )
+     {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+//function clean projection
+function cleanProjection(){
+  for (let y = 0; y <playfield.length; y++) {
+    for (let x = 0; x < playfield[0].length; x++) {
+      if (playfield[y][x] === 3) {
+        playfield[y][x] = 0;
+
+      }
+    }
+  }
+}
 // function to rotate shapes (Tetro)
 function rotateTetro() {
   const prevTetroState = activeTetro.shape;
@@ -409,6 +468,7 @@ document.onkeydown = function (e) {
 function updateGameState() {
   if (!isPaused) {
     addActiveTetro();
+    addProjection();
     drawField();
     drawNextTetro();
   }

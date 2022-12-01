@@ -63,6 +63,9 @@ body {
 .fixedCell {
   background-color: green;
 }
+.projectionCell{
+  background-color: grey;
+}
 .game {
   width: 320px;
   margin: auto;
