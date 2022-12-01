@@ -164,7 +164,6 @@ function addActiveTetro() {
 function rotateTetro() {
   const prevTetroState = activeTetro.shape;
   const prevX = activeTetro.x;
-  const nextX=activeTetro.x;
   activeTetro.shape = activeTetro.shape[0].map((val, index) =>
     activeTetro.shape.map((row) => row[index]).reverse()
   );
@@ -178,14 +177,12 @@ function rotateTetro() {
   if(isLeftOutOfField()){
     // The current shape is out on left side.
     // Move it right enough so it doesn't go out.
-    const w = activeTetro.shape[0].length;
-    activeTetro.x =9 +(w - 1);
+    activeTetro.x =0;
  }
 
   if (hasCollisions()) {
     activeTetro.shape = prevTetroState;
     activeTetro.x = prevX; // If changed in isRightOutOfField()
-    activeTetro.x = nextX;
   }
 }
 function isRightOutOfField(){
@@ -208,19 +205,16 @@ function isRightOutOfField(){
 function isLeftOutOfField(){
   const shape=activeTetro.shape;
   const h=shape.length;// height
-  const l=shape[0];//// left edge of the shape, i.e. the first column.
-  console.log(l)
   for(let y=0;y<h;y++){
-    const cell=shape[y][l];
-    const playcell = playfield[activeTetro.y + y][activeTetro.x + l] // A cell on the playfield.
-    console.log(playcell)
+    const cell=shape[y][0];
+    const playcell = playfield[activeTetro.y + y][activeTetro.x] // A cell on the playfield.
     if (cell == 1 && playcell === undefined) {
       return true;
     }
   }
   return false;
 }
-rotateTetro();
+
 
 // control if tetromino has collision
 //check if figure don't go out of field
