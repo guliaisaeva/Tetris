@@ -4,7 +4,7 @@ const levelEl = document.getElementById("level");
 const nextTetroEl = document.getElementById("next-tetro");
 const startBtn = document.getElementById("start");
 const pauseBtn = document.getElementById("pause");
-const gameOver = document.getElementById("game-over");
+const gameOver = document.querySelector("#game-over");
 const currentlevel = 1;
 let isPaused = true;
 let gameTimerID;
@@ -134,7 +134,7 @@ function drawNextTetro() {
         nextTetroInnerHtml += `<div class="cell movingCell"></div>`;
       }
       else {
-        nextTetroInnerHtml += `<div  class ="cell"></div>`;
+        nextTetroInnerHtml += `<div class ="cell"></div>`;
       }
     }
     nextTetroInnerHtml += "<br/>";
