@@ -23,9 +23,12 @@ body {
 /*-------------- style for classes and id----------- */
 .container{
 max-width: 1200px;
+height: 100vh;
+display: flex;
+justify-content: center;
+align-items: center;
 }
 .game {
-  margin-top: 0.5em;
   height:45.5em;
   display: flex;
   justify-content: center;
@@ -73,7 +76,6 @@ max-width: 1200px;
   }
   .btn {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   gap: 1em;
   }
@@ -101,7 +103,6 @@ max-width: 1200px;
       gap: 0.7em;
       justify-content: center;
       align-items: center;
-      flex-wrap: wrap;
       border: 2px solid #fff;
     }
     .score-level p{
@@ -116,7 +117,7 @@ max-width: 1200px;
     .score-level span:hover{
      color: #50A3A4;
     }
-/*----------- mobile version------------- */
+/*----------- mobile and tablet version------------- */
 .arrows{
   width:100%;
   text-align: center;
@@ -135,10 +136,37 @@ i{
   background-color: beige;
   border-radius: 5px;
 }
-
-@media screen and (max-width: 470px) {
+ /* tablet size */
+ @media screen and (max-width:768px){
+  .arrows{
+    display: block;
+  }
+ }
+ @media screen and (max-width:620px){
+  body{
+  font-size: 12px;
+  }
+ }
+ @media screen and (max-width:580px){
+  body{
+  font-size: 11px;
+  }
+  .game{
+    height: 46em;
+   }
+ }
+ @media screen and (max-width:521px){
+  body{
+  font-size: 10px;
+  }
+  .game{
+    height: 46em;
+   }
+ }
+ /* mobile large */
+ @media screen and (max-width: 425px) {
  body{
-font-size: 10px;
+font-size: 8.5px;
  }
  .game{
   height: 46em;
@@ -151,5 +179,29 @@ font-size: 10px;
 .game{
   height: 46.5em;
 }
+}
+/* moble m size */
+@media screen and (max-width: 375px) {
+  body{
+ font-size: 7.5px;
+  }
+.game{
+  height: 46.5em;
+}}
+@media screen and (max-width: 350px) {
+  body{
+ font-size: 7.2px;
+  }
+.game{
+  height: 46.5em;
+}
+}
+@media screen and (max-width: 320px) {
+  body{
+ font-size: 7px;
+  }
+.game{
+  height: 46.5em;
+}
 
- }
+}
