@@ -425,7 +425,7 @@ function reset() {
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   ];
   drawField();
-  gameOver.style.display = "block";
+ alert("Game Over!Try one more Time!")
 
 }
 
@@ -458,11 +458,8 @@ document.onkeydown = function (e) {
       //when spacebar is pressed,tetromino drop to quick down
       dropTetro();
     }
-
     updateGameState();
-
   }
-
 };
 //updating of Game state
 function updateGameState() {
@@ -494,15 +491,11 @@ startBtn.addEventListener("click", (e) => {
   isPaused = false;
   // gameTimerID = setTimeout(startGame, possibleLevel[currentlevel].speed);
   gameTimerID=setTimeout(startGame,second)
-  gameOver.style.display = "none";
 });
-
 
 scoreEl.innerHTML = score;
 levelEl.innerHTML = currentlevel;
 drawField();
-
-
 // function for starting to move down
 
 function startGame() {
@@ -512,3 +505,48 @@ function startGame() {
     gameTimerID = setTimeout(startGame, second);
   }
 }
+// arrow functionality of mobile version
+//for using keyboard keys
+
+  const arrowUp=document.getElementById("arrow-up");
+  const arrowLeft=document.getElementById("arrow-left");
+  const arrowRight=document.getElementById("arrow-right");
+  const arrowDown=document.getElementById("arrow-down");
+
+    arrowLeft.addEventListener("click",()=>{
+      if (!isPaused) {
+      console.log("works")
+      //move to left
+      activeTetro.x -= 1;
+      if (hasCollisions()) {
+        activeTetro.x += 1;
+      }
+    }
+    updateGameState();
+    });
+     arrowRight.addEventListener("click",()=>{
+      if (!isPaused) {
+      //move to right
+      activeTetro.x += 1;
+      if (hasCollisions()) {
+        activeTetro.x -= 1;
+      }
+    }
+    updateGameState();
+    });
+    arrowDown.addEventListener("click",()=>{
+      if (!isPaused) {
+      // speed up to down
+    moveTetroDown();
+      // drawField(); //for a smoother moving
+      }
+      updateGameState();
+    });
+    arrowUp.addEventListener("click",()=>{
+      if (!isPaused) {
+      //to up  rotate
+      rotateTetro();
+      }
+      updateGameState();
+    })
+

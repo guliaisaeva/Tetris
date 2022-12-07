@@ -7,33 +7,42 @@
   <title>Tetris By Gulia</title>
   <!-- link to css -->
   <link rel="stylesheet" href="./assets/styles/style.css">
-
+  <!-- link to fontawesom -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
 
   <div class="container">
-
     <div class="game">
       <!-- 10x20 -->
       <div class="main">
       </div>
       <div class="topDisplay">
-        <!-- <div class="levelScorePanel"> -->
-        <div id="next-tetro"></div>
+        <div class="next-tetro-box">
+          <div id="next-tetro"></div>
+        </div>
         <div class="btn">
           <button id="start" class="button">Start</button>
           <button id="pause" class="button">Pause</button>
         </div>
-
         <div class="score-level">
           <p>Level: <span id="level">0</span></p>
           <p>Score: <span id="score">0</span></p>
         </div>
-        <!--
-        </div> -->
+        <!-- mobile version  / arrows-->
+        <div class="arrows">
+          <div class="arrow" id="arrow-up"><i class="fa-solid fa-arrow-up"></i></div>
+          <div id="left-right">
+            <div class="arrow" id="arrow-left"><i class="fa-solid fa-arrow-left"></i></div>
+            <div class="arrow" id="arrow-right"><i class="fa-solid fa-arrow-right"></i></div>
+          </div>
+          <div class="arrow" id="arrow-down"><i class="fa-solid fa-arrow-down"></i></div>
+        </div>
       </div>
     </div>
-    <div id="game-over">Game Over</div>
+
 
   </div>
   <!-- tetris's Js Code -->
