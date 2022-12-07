@@ -24,7 +24,7 @@ max-width: 1200px;
 
 }
 .game {
-  height: 94vh;
+  height: 100vh;
   display: flex;
   justify-content: center;
   background-color:#50A3A4;
