@@ -10,9 +10,7 @@
 
 </head>
 <body>
-  <video autoplay loop muted plays-inline class="bg-video">
-    <source src="./assets/images/pexels-free-creative-stuff-5561389.mp4" type="video/mp4">
-  </video>
+
   <div class="container">
 
     <div class="game">
@@ -20,15 +18,19 @@
       <div class="main">
       </div>
       <div class="topDisplay">
-        <div class="levelScorePanel">
-          <div id="next-tetro"></div>
-          <div class="btn">
-            <button id="start" class="button">Start</button>
-            <button id="pause" class="button">Pause</button>
-          </div>
-          <div>Level: <span id="level">0</span></div>
-          <div>Score: <span id="score">0</span></div>
+        <!-- <div class="levelScorePanel"> -->
+        <div id="next-tetro"></div>
+        <div class="btn">
+          <button id="start" class="button">Start</button>
+          <button id="pause" class="button">Pause</button>
         </div>
+
+        <div class="score-level">
+          <p>Level: <span id="level">0</span></p>
+          <p>Score: <span id="score">0</span></p>
+        </div>
+        <!--
+        </div> -->
       </div>
     </div>
     <div id="game-over">Game Over</div>
