@@ -127,17 +127,20 @@ align-items: center;
 #left-right{
   display: flex;
   justify-content: center;
-  gap: 2.7em;
+  gap: 4.7em;
 }
 i{
   color: #50A3A4;
   border: 1px solid #fff;
-  padding: 1em;
+  padding: 2.2em;
   background-color: beige;
   border-radius: 5px;
 }
  /* tablet size */
  @media screen and (max-width:768px){
+  body{
+    font-size: 11px;
+    }
   .arrows{
     display: block;
   }
@@ -152,7 +155,7 @@ i{
   font-size: 11px;
   }
   .game{
-    height: 46em;
+    height: 46.5em;
    }
  }
  @media screen and (max-width:521px){
@@ -160,7 +163,7 @@ i{
   font-size: 10px;
   }
   .game{
-    height: 46em;
+    height: 46.5em;
    }
  }
  /* mobile large */
@@ -169,7 +172,7 @@ i{
 font-size: 8.5px;
  }
  .game{
-  height: 46em;
+  height: 46.5em;
  }
 }
 @media screen and (max-width: 385px) {
@@ -186,7 +189,7 @@ font-size: 8.5px;
  font-size: 7.5px;
   }
 .game{
-  height: 46.5em;
+  height: 46.6em;
 }}
 @media screen and (max-width: 350px) {
   body{
